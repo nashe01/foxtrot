@@ -15,7 +15,7 @@
   --off-white: #F5F5F0;
   --gray: #666666;
   --light-gray: #444444;
-  --text: #111111;
+  --text: #0F1F48;
   --gold: #D4A017;
 }
 
@@ -81,8 +81,8 @@ body {
 .fx-stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-.fx-ticker { background: var(--red); padding: 10px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); color: #ffffff; }
-.fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: #ffffff; }
+.fx-ticker { background: var(--text); padding: 10px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); color: var(--red); }
+.fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--red); }
 .fx-ticker-item { padding: 0 40px; }
 .fx-ticker-item::after { content: '◆'; padding-left: 40px; opacity: 0.5; }
 @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
