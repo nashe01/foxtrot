@@ -16,7 +16,7 @@
   --off-white: #F5F5F0;
   --gray: #666666;
   --light-gray: #444444;
-  --text: #0F1F48;
+  --text: #1A5276;
   --gold: #D4A017;
 }
 
@@ -38,11 +38,11 @@ body {
 .fx-logo { display: flex; flex-direction: column; }
 .fx-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--red); line-height:1; }
 .fx-logo-sub { font-size: 9px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; }
-.fx-nav-links { display: flex; gap: 32px; }
-.fx-nav-links a { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--light-gray); text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 500; }
+.fx-nav-links { display: flex; gap: 44px; }
+.fx-nav-links a { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--light-gray); text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 700; }
 .fx-nav-links a:hover { color: var(--red); }
-.fx-nav-cta { background: var(--red); color: #ffffff; border: none; padding: 10px 22px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: background 0.2s; }
-.fx-nav-cta:hover { background: var(--red-light); }
+.fx-nav-cta { background: var(--red); color: var(--text); border: 1px solid var(--red-dark); box-shadow: 0 6px 16px rgba(232,101,10,0.28); padding: 10px 22px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; cursor: pointer; font-family: 'Barlow', sans-serif; transition: background 0.2s, box-shadow 0.2s, transform 0.2s; }
+.fx-nav-cta:hover { background: var(--red-light); box-shadow: 0 8px 20px rgba(232,101,10,0.34); transform: translateY(-1px); }
 
 .fx-page { display: none; }
 .fx-page.active { display: block; }
@@ -54,7 +54,7 @@ body {
   background-color: var(--page-bg);
   background-image:
     linear-gradient(105deg, rgba(232, 234, 237, 0.96) 0%, rgba(232, 234, 237, 0.78) 26%, rgba(232, 234, 237, 0.22) 52%, transparent 72%),
-    linear-gradient(to bottom, rgba(15, 31, 72, 0.06) 0%, transparent 42%),
+    linear-gradient(to bottom, rgba(26, 82, 118, 0.06) 0%, transparent 42%),
     url('/hero-bg.png');
   background-size: cover;
   background-position: center;
@@ -82,7 +82,7 @@ body {
 .fx-hero-title span { color: var(--red); }
 .fx-hero-sub { font-size: 15px; line-height: 1.7; color: #555555; max-width: 480px; margin-bottom: 40px; animation: fadeUp 0.8s ease 0.3s both; }
 .fx-hero-actions { display: flex; gap: 16px; animation: fadeUp 0.8s ease 0.45s both; }
-.fx-btn-primary { background: var(--red); color: #ffffff; border: none; padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
+.fx-btn-primary { background: var(--red); color: var(--text); border: none; padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
 .fx-btn-primary:hover { background: var(--red-light); transform: translateY(-1px); }
 .fx-btn-outline { background: transparent; color: var(--text); border: 1px solid rgba(0,0,0,0.15); padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
 .fx-btn-outline:hover { border-color: var(--red); color: var(--red); }
@@ -128,9 +128,9 @@ body {
 .fx-map-dot::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(232,101,10,0.4); animation: radarExpand 2s ease-out infinite; }
 .fx-map-dot.dot1 { top: 45%; left: 38%; }
 .fx-map-dot.dot2 { top: 62%; left: 55%; animation-delay: 0.5s; }
-.fx-project-badge { position: absolute; bottom: -20px; right: -20px; background: var(--red); padding: 20px 24px; font-family: 'Bebas Neue', sans-serif; color: #ffffff; }
-.fx-project-badge-num { font-size: 36px; line-height: 1; color: #ffffff; }
-.fx-project-badge-label { font-size: 11px; letter-spacing: 2px; opacity: 0.9; color: #ffffff; }
+.fx-project-badge { position: absolute; bottom: -20px; right: -20px; background: var(--red); padding: 20px 24px; font-family: 'Bebas Neue', sans-serif; color: var(--text); }
+.fx-project-badge-num { font-size: 36px; line-height: 1; color: var(--text); }
+.fx-project-badge-label { font-size: 11px; letter-spacing: 2px; opacity: 0.9; color: var(--text); }
 .fx-project-tag { display: inline-block; background: rgba(232,101,10,0.15); color: var(--red); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; margin-bottom: 20px; font-weight: 600; }
 .fx-project-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; line-height: 1.1; margin-bottom: 20px; letter-spacing: 1px; }
 .fx-project-desc { font-size: 15px; line-height: 1.8; color: #999; margin-bottom: 32px; }
