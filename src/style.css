@@ -25,12 +25,15 @@ body {
   background: var(--page-bg);
 }
 
-.fx-site { font-family: 'Barlow', sans-serif; background: var(--page-bg); color: var(--text); overflow-x: hidden; }
+.fx-site { font-family: 'Barlow', sans-serif; background: var(--page-bg); color: var(--text); overflow-x: hidden; padding-top: 64px; }
 
 .fx-nav {
-  position: sticky; top: 0; z-index: 100;
+  position: fixed; top: 0; z-index: 100;
+  left: 0;
+  right: 0;
+  width: 100%;
   background: rgba(255,255,255,0.97);
-  border-bottom: 1px solid rgba(232,101,10,0.2);
+  border-bottom: 1px solid #E8650A;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 40px; height: 64px;
   backdrop-filter: blur(8px);
@@ -39,7 +42,7 @@ body {
 .fx-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--red); line-height:1; }
 .fx-logo-sub { font-size: 9px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; }
 .fx-nav-links { display: flex; gap: 44px; }
-.fx-nav-links a { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--light-gray); text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 700; }
+.fx-nav-links a { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #1A5276; text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 700; }
 .fx-nav-links a:hover { color: var(--red); }
 .fx-quote-btn {
   display: inline-flex;
