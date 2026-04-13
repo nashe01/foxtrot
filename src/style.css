@@ -144,7 +144,7 @@ body {
 .fx-hero-actions { display: flex; gap: 16px; animation: fadeUp 0.8s ease 0.45s both; }
 .fx-btn-primary { background: var(--red); color: var(--text); border: none; padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
 .fx-btn-primary:hover { background: var(--red-light); transform: translateY(-1px); }
-.fx-btn-outline { background: transparent; color: var(--text); border: 1px solid rgba(0,0,0,0.15); padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
+.fx-btn-outline { background: transparent; color: var(--text); border: 2px solid #E8650A; padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
 .fx-btn-outline:hover { border-color: var(--red); color: var(--red); }
 
 .fx-hero-stats { position: absolute; bottom: 48px; left: 60px; right: 40%; display: flex; gap: 48px; z-index: 2; animation: fadeUp 0.8s ease 0.6s both; }
@@ -153,7 +153,7 @@ body {
 .fx-stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-.fx-ticker { background: var(--text); padding: 10px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); color: var(--red); margin-top: -42px; position: relative; z-index: 3; }
+.fx-ticker { background: var(--text); padding: 10px 0; overflow: hidden; border-top: 2px solid #E8650A; border-bottom: 2px solid #E8650A; color: var(--red); margin-top: -42px; position: relative; z-index: 3; }
 .fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--red); }
 .fx-ticker-item { padding: 0 40px; }
 .fx-ticker-item::after { content: '◆'; padding-left: 40px; opacity: 0.5; }
@@ -267,7 +267,7 @@ body {
 .fx-footer-copy { font-size: 12px; color: var(--gray); }
 .fx-footer-badge { font-size: 11px; letter-spacing: 2px; color: var(--red); text-transform: uppercase; font-weight: 600; }
 
-.fx-whatsapp { position: fixed; bottom: 50px; right: 32px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: #25D366; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); animation: waBounce 3s ease-in-out infinite; transition: transform 0.2s; }
+.fx-whatsapp { position: fixed; bottom: 50px; right: 32px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: #25D366; border: 2px solid #E8650A; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); animation: waBounce 3s ease-in-out infinite; transition: transform 0.2s; }
 .fx-whatsapp:hover { transform: scale(1.1); }
 @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 .fx-whatsapp svg { width: 28px; height: 28px; fill: white; }
