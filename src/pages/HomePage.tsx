@@ -25,14 +25,14 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
       <section className="fx-hero">
         <div className="fx-hero-bg" />
         <div className="fx-hero-grid" />
-        <div className="fx-radar">
+        {/*<div className="fx-radar">
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
-        </div>
+        </div>*/}
         <div className="fx-hero-content">
           <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
           <h1 className="fx-hero-title">
