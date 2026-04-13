@@ -16,8 +16,6 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
         <a onClick={() => onNavigate('home')}>Home</a>
         <a onClick={() => onNavigate('about')}>About</a>
         <a onClick={() => onNavigate('services')}>Services</a>
-        <a onClick={() => onScrollToSection('section-products')}>Products</a>
-        <a onClick={() => onScrollToSection('section-contact')}>Contact</a>
       </div>
       <button className="fx-nav-cta" onClick={() => onScrollToSection('section-contact')}>
         Get a Quote

@@ -7,6 +7,7 @@
   --red-dark: #B84E08;
   --red-light: #FF7A1A;
   /* Light theme: page + surfaces */
+  --page-bg: #E8EAED;
   --black: #FFFFFF;
   --dark: #FFFFFF;
   --dark2: #F5F5F5;
@@ -21,10 +22,10 @@
 
 html,
 body {
-  background: #ffffff;
+  background: var(--page-bg);
 }
 
-.fx-site { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
+.fx-site { font-family: 'Barlow', sans-serif; background: var(--page-bg); color: var(--text); overflow-x: hidden; }
 
 .fx-nav {
   position: sticky; top: 0; z-index: 100;
@@ -46,12 +47,23 @@ body {
 .fx-page { display: none; }
 .fx-page.active { display: block; }
 
-.fx-hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: var(--black); }
-.fx-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(232,101,10,0.12) 0%, transparent 60%); }
-.fx-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,101,10,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(232,101,10,0.05) 1px, transparent 1px); background-size: 60px 60px; animation: gridPulse 8s ease-in-out infinite; }
-@keyframes gridPulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+.fx-hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: var(--page-bg); }
+.fx-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--page-bg);
+  background-image:
+    linear-gradient(105deg, rgba(232, 234, 237, 0.96) 0%, rgba(232, 234, 237, 0.78) 26%, rgba(232, 234, 237, 0.22) 52%, transparent 72%),
+    linear-gradient(to bottom, rgba(15, 31, 72, 0.06) 0%, transparent 42%),
+    url('/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.fx-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,101,10,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(232,101,10,0.06) 1px, transparent 1px); background-size: 60px 60px; animation: gridPulse 8s ease-in-out infinite; pointer-events: none; }
+@keyframes gridPulse { 0%,100%{opacity:0.1} 50%{opacity:0.18} }
 
-.fx-radar { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 380px; height: 380px; }
+.fx-radar { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 380px; height: 380px; opacity: 0.4; pointer-events: none; }
 .fx-radar-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(232,101,10,0.3); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: radarExpand 4s ease-out infinite; }
 .fx-radar-circle:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
 .fx-radar-circle:nth-child(2) { width: 160px; height: 160px; animation-delay: 1s; }
@@ -94,7 +106,7 @@ body {
 .fx-section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: 2px; }
 .fx-section-title em { color: var(--red); font-style: normal; }
 
-.fx-services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; background: var(--dark3); }
+.fx-services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; background: var(--white); }
 .fx-service-card { background: var(--dark); padding: 40px 36px; border-bottom: 3px solid transparent; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; }
 .fx-service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(232,101,10,0.05) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
 .fx-service-card:hover { border-bottom-color: var(--red); background: #FAFAFA; }
