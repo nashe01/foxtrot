@@ -42,16 +42,12 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <br />
             Empowering
             <br />
-            Communities.
           </h1>
           <p className="fx-hero-sub">
             Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
             — delivering operational excellence in every community we serve.
           </p>
           <div className="fx-hero-actions">
-            <button className="fx-btn-primary" onClick={() => onNavigate('services')}>
-              Explore Services
-            </button>
             <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
               Our Story
             </button>

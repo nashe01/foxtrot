@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { Page } from '../../types/page'
 
 type Props = {
@@ -6,8 +7,20 @@ type Props = {
 }
 
 export function NavBar({ onNavigate, onScrollToSection }: Props) {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <nav className="fx-nav">
+    <nav className={`fx-nav ${isScrolled ? 'scrolled' : ''}`}>
       <div className="fx-logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
         <div className="fx-logo-main">FOXTROT</div>
         <div className="fx-logo-sub">Electrocommunication Systems</div>
