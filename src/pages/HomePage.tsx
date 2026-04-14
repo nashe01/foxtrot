@@ -25,14 +25,14 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
       <section className="fx-hero">
         <div className="fx-hero-bg" />
         <div className="fx-hero-grid" />
-        <div className="fx-radar">
+        {/*<div className="fx-radar">
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-circle" />
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
-        </div>
+        </div>*/}
         <div className="fx-hero-content">
           <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
           <h1 className="fx-hero-title">
@@ -42,16 +42,12 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <br />
             Empowering
             <br />
-            Communities.
           </h1>
           <p className="fx-hero-sub">
             Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
             — delivering operational excellence in every community we serve.
           </p>
           <div className="fx-hero-actions">
-            <button className="fx-btn-primary" onClick={() => onNavigate('services')}>
-              Explore Services
-            </button>
             <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
               Our Story
             </button>
@@ -266,62 +262,6 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <div className="fx-partner-tag">
               Partners: <strong>Aware Germany</strong> ·{' '}
               <strong>Zimbabwe Parks &amp; Wildlife Authority</strong>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="fx-section" id="section-products">
-        <div className="fx-section-header">
-          <div className="fx-section-label">Hytera Partner</div>
-          <h2 className="fx-section-title">
-            Product <em>Range</em>
-          </h2>
-        </div>
-        <div className="fx-products-grid">
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">HP6</div>
-            </div>
-            <div className="fx-product-label">Portable DMR</div>
-            <div className="fx-product-name">Hytera HP6 Series</div>
-            <div className="fx-product-desc">
-              New generation digital radio — clear, consistent and effective communications for professional use.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">DMR</span>
-              <span className="fx-spec-pill">Digital</span>
-              <span className="fx-spec-pill">IP68</span>
-            </div>
-          </div>
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">PT590</div>
-            </div>
-            <div className="fx-product-label">TETRA Radio</div>
-            <div className="fx-product-name">PT590 TETRA</div>
-            <div className="fx-product-desc">
-              Universal Type-C port. Speed meets simplicity. Built for mission-critical operations and first responders.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">TETRA</span>
-              <span className="fx-spec-pill">Type-C</span>
-              <span className="fx-spec-pill">Mission Critical</span>
-            </div>
-          </div>
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">HM6</div>
-            </div>
-            <div className="fx-product-label">Mobile DMR</div>
-            <div className="fx-product-name">HM6 Series</div>
-            <div className="fx-product-desc">
-              Digital mobile radio designed for vehicle-mounted installations — reliable in-field communications.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">DMR</span>
-              <span className="fx-spec-pill">Mobile</span>
-              <span className="fx-spec-pill">Vehicle Mount</span>
             </div>
           </div>
         </div>

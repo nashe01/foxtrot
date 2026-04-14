@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import type { Page } from '../../types/page'
 
 type Props = {
@@ -6,8 +7,20 @@ type Props = {
 }
 
 export function NavBar({ onNavigate, onScrollToSection }: Props) {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 12)
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <nav className="fx-nav">
+    <nav className={`fx-nav ${isScrolled ? 'scrolled' : ''}`}>
       <div className="fx-logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
         <div className="fx-logo-main">FOXTROT</div>
         <div className="fx-logo-sub">Electrocommunication Systems</div>
@@ -16,11 +29,20 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
         <a onClick={() => onNavigate('home')}>Home</a>
         <a onClick={() => onNavigate('about')}>About</a>
         <a onClick={() => onNavigate('services')}>Services</a>
-        <a onClick={() => onScrollToSection('section-products')}>Products</a>
-        <a onClick={() => onScrollToSection('section-contact')}>Contact</a>
       </div>
-      <button className="fx-nav-cta" onClick={() => onScrollToSection('section-contact')}>
-        Get a Quote
+      <button className="fx-quote-btn" onClick={() => onScrollToSection('section-contact')}>
+        <span className="btn-text">Get a quote</span>
+        <span className="btn-icon">
+          <svg viewBox="0 0 24 24" fill="none" width={20} height={20}>
+            <path
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2M12 11v4M10 13h4"
+              stroke="#ffffff"
+              strokeWidth={1.8}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
       </button>
     </nav>
   )
