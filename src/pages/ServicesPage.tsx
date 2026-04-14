@@ -42,10 +42,22 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </ul>
           </div>
           <div className="fx-sd-visual">
-            <div className="fx-sd-bg-text">
-              RADIO
-              <br />
-              COMMS
+            <div className="fx-sd-layout">
+              <div className="fx-sd-left">
+                <div className="fx-sd-bg-text">
+                  RADIO
+                  <br />
+                  COMMS
+                </div>
+              </div>
+              <div className="fx-sd-top-right">
+                <div className="fx-sd-card-label">Coverage</div>
+                <div className="fx-sd-card-value">24/7</div>
+              </div>
+              <div className="fx-sd-bottom-right">
+                <div className="fx-sd-mini-label">Field Ready</div>
+              </div>
+              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -66,10 +78,22 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </ul>
           </div>
           <div className="fx-sd-visual">
-            <div className="fx-sd-bg-text">
-              SOLAR
-              <br />
-              ENERGY
+            <div className="fx-sd-layout">
+              <div className="fx-sd-left">
+                <div className="fx-sd-bg-text">
+                  SOLAR
+                  <br />
+                  ENERGY
+                </div>
+              </div>
+              <div className="fx-sd-top-right">
+                <div className="fx-sd-card-label">Systems</div>
+                <div className="fx-sd-card-value">Hybrid</div>
+              </div>
+              <div className="fx-sd-bottom-right">
+                <div className="fx-sd-mini-label">High Efficiency</div>
+              </div>
+              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -89,10 +113,22 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </ul>
           </div>
           <div className="fx-sd-visual">
-            <div className="fx-sd-bg-text">
-              POWER
-              <br />
-              BACKUP
+            <div className="fx-sd-layout">
+              <div className="fx-sd-left">
+                <div className="fx-sd-bg-text">
+                  POWER
+                  <br />
+                  BACKUP
+                </div>
+              </div>
+              <div className="fx-sd-top-right">
+                <div className="fx-sd-card-label">Uptime</div>
+                <div className="fx-sd-card-value">99%</div>
+              </div>
+              <div className="fx-sd-bottom-right">
+                <div className="fx-sd-mini-label">Critical Load</div>
+              </div>
+              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -113,10 +149,22 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </ul>
           </div>
           <div className="fx-sd-visual">
-            <div className="fx-sd-bg-text">
-              INFRA
-              <br />
-              STRUCTURE
+            <div className="fx-sd-layout">
+              <div className="fx-sd-left">
+                <div className="fx-sd-bg-text">
+                  INFRA
+                  <br />
+                  STRUCTURE
+                </div>
+              </div>
+              <div className="fx-sd-top-right">
+                <div className="fx-sd-card-label">Support</div>
+                <div className="fx-sd-card-value">On Site</div>
+              </div>
+              <div className="fx-sd-bottom-right">
+                <div className="fx-sd-mini-label">Engineered Build</div>
+              </div>
+              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -136,10 +184,22 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </ul>
           </div>
           <div className="fx-sd-visual">
-            <div className="fx-sd-bg-text">
-              SMART
-              <br />
-              FARMING
+            <div className="fx-sd-layout">
+              <div className="fx-sd-left">
+                <div className="fx-sd-bg-text">
+                  SMART
+                  <br />
+                  FARMING
+                </div>
+              </div>
+              <div className="fx-sd-top-right">
+                <div className="fx-sd-card-label">Monitoring</div>
+                <div className="fx-sd-card-value">Remote</div>
+              </div>
+              <div className="fx-sd-bottom-right">
+                <div className="fx-sd-mini-label">Agri Tech</div>
+              </div>
+              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
