@@ -267,62 +267,6 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
         </div>
       </section>
 
-      <section className="fx-section" id="section-products">
-        <div className="fx-section-header">
-          <div className="fx-section-label">Hytera Partner</div>
-          <h2 className="fx-section-title">
-            Product <em>Range</em>
-          </h2>
-        </div>
-        <div className="fx-products-grid">
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">HP6</div>
-            </div>
-            <div className="fx-product-label">Portable DMR</div>
-            <div className="fx-product-name">Hytera HP6 Series</div>
-            <div className="fx-product-desc">
-              New generation digital radio — clear, consistent and effective communications for professional use.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">DMR</span>
-              <span className="fx-spec-pill">Digital</span>
-              <span className="fx-spec-pill">IP68</span>
-            </div>
-          </div>
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">PT590</div>
-            </div>
-            <div className="fx-product-label">TETRA Radio</div>
-            <div className="fx-product-name">PT590 TETRA</div>
-            <div className="fx-product-desc">
-              Universal Type-C port. Speed meets simplicity. Built for mission-critical operations and first responders.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">TETRA</span>
-              <span className="fx-spec-pill">Type-C</span>
-              <span className="fx-spec-pill">Mission Critical</span>
-            </div>
-          </div>
-          <div className="fx-product-card">
-            <div className="fx-product-visual">
-              <div className="fx-product-series">HM6</div>
-            </div>
-            <div className="fx-product-label">Mobile DMR</div>
-            <div className="fx-product-name">HM6 Series</div>
-            <div className="fx-product-desc">
-              Digital mobile radio designed for vehicle-mounted installations — reliable in-field communications.
-            </div>
-            <div className="fx-product-specs">
-              <span className="fx-spec-pill">DMR</span>
-              <span className="fx-spec-pill">Mobile</span>
-              <span className="fx-spec-pill">Vehicle Mount</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="fx-why-section">
         <div className="fx-section-header">
           <div className="fx-section-label">Why Foxtrot</div>
