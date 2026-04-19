@@ -154,8 +154,8 @@ body {
 .fx-stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 
-.fx-ticker { background: var(--text); padding: 10px 0; overflow: hidden; color: var(--red); margin-top: -42px; position: relative; z-index: 3; }
-.fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--red); }
+.fx-ticker { background: linear-gradient(90deg, rgba(232,101,10,0.82) 0%, rgba(255,122,26,0.78) 100%); padding: 10px 0; overflow: hidden; color: var(--text); margin-top: -42px; position: relative; z-index: 3; }
+.fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 800; color: var(--text); }
 .fx-ticker-item { padding: 0 40px; }
 .fx-ticker-item::after { content: '◆'; padding-left: 40px; opacity: 0.5; }
 @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
