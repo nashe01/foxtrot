@@ -175,7 +175,7 @@ body {
 
 .fx-service-card {
   background: #fff;
-  border: 0.5px solid rgba(0,0,0,0.1);
+  border: 1px solid #E8650A;
   border-radius: 12px;
   padding: 1.25rem;
   display: flex;
@@ -184,7 +184,7 @@ body {
   cursor: pointer;
   transition: border-color 0.15s;
 }
-.fx-service-card:hover { border-color: #E8650A; }
+.fx-service-card:hover { border-color: #B84E08; }
 
 .fx-service-icon {
   width: 36px; height: 36px;
