@@ -1,13 +1,15 @@
 import { useMemo } from 'react'
+import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
 import type { Page } from '../types/page'
 
 type Props = {
   active: boolean
   onNavigate: (page: Page) => void
+  onNavigateToServiceSection: (sectionId: string) => void
   onShowToast: (message: string) => void
 }
 
-export function HomePage({ active, onNavigate, onShowToast }: Props) {
+export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
   const tickerItems = useMemo(
     () => [
       'Two-Way Radio Systems',
@@ -76,7 +78,10 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
           </h2>
         </div>
         <div className="fx-services-grid">
-          <div className="fx-service-card" onClick={() => onNavigate('services')}>
+          <div
+            className="fx-service-card"
+            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.twoWayRadio)}
+          >
             <div className="fx-service-num">01</div>
             <div className="fx-service-title">Two-Way Radio Systems</div>
             <div className="fx-service-desc">
@@ -86,7 +91,10 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <div className="fx-service-arrow">→</div>
           </div>
 
-          <div className="fx-service-card" onClick={() => onNavigate('services')}>
+          <div
+            className="fx-service-card"
+            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.solarRenewable)}
+          >
             <div className="fx-service-num">02</div>
             <div className="fx-service-title">Solar &amp; Renewable Energy</div>
             <div className="fx-service-desc">
@@ -95,7 +103,10 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <div className="fx-service-arrow">→</div>
           </div>
 
-          <div className="fx-service-card" onClick={() => onNavigate('services')}>
+          <div
+            className="fx-service-card"
+            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.energyBackup)}
+          >
             <div className="fx-service-num">03</div>
             <div className="fx-service-title">Energy Backup Solutions</div>
             <div className="fx-service-desc">
@@ -104,7 +115,10 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <div className="fx-service-arrow">→</div>
           </div>
 
-          <div className="fx-service-card" onClick={() => onNavigate('services')}>
+          <div
+            className="fx-service-card"
+            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.technicalInfrastructure)}
+          >
             <div className="fx-service-num">04</div>
             <div className="fx-service-title">Technical Infrastructure</div>
             <div className="fx-service-desc">
@@ -113,7 +127,10 @@ export function HomePage({ active, onNavigate, onShowToast }: Props) {
             <div className="fx-service-arrow">→</div>
           </div>
 
-          <div className="fx-service-card" onClick={() => onNavigate('services')}>
+          <div
+            className="fx-service-card"
+            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.smartFarming)}
+          >
             <div className="fx-service-num">05</div>
             <div className="fx-service-title">Smart Farming Technologies</div>
             <div className="fx-service-desc">
