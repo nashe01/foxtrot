@@ -215,6 +215,14 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           Request a Quote for Any Service →
         </button>
       </div>
+      <button
+        type="button"
+        className="fx-services-back-fab"
+        onClick={() => onScrollToSection('section-services')}
+        aria-label="Back to Core Services on the home page"
+      >
+        ← Core Services
+      </button>
     </div>
   )
 }
