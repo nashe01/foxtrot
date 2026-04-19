@@ -186,18 +186,10 @@ body {
 }
 .fx-service-card:hover { border-color: #B84E08; }
 
-.fx-service-icon {
-  width: 36px; height: 36px;
-  background: #FEF0E7;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-}
-.fx-service-icon svg { width: 22px; height: 22px; }
-
-.fx-service-num { font-size: 11px; font-weight: 500; color: #E8650A; }
-.fx-service-title { font-size: 14px; font-weight: 500; }
-.fx-service-desc { font-size: 12px; color: #666; line-height: 1.55; flex: 1; }
-.fx-service-arrow { color: #E8650A; transition: transform 0.15s; }
+.fx-service-num { font-size: 12px; font-weight: 600; color: #E8650A; letter-spacing: 0.02em; }
+.fx-service-title { font-size: 16px; font-weight: 600; color: #000000; line-height: 1.3; }
+.fx-service-desc { font-size: 14px; color: #000000; line-height: 1.55; flex: 1; }
+.fx-service-arrow { color: #000000; transition: transform 0.15s; font-size: 18px; line-height: 1; }
 .fx-service-card:hover .fx-service-arrow { transform: translateX(3px); }
 
 @media (max-width: 480px) {
