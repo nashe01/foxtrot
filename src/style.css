@@ -59,7 +59,7 @@ body {
   background: transparent;
   border: 2px solid #E8650A;
   border-radius: 60px;
-  padding: 4px 4px 4px 18px;
+  padding: 3px 3px 3px 14px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
@@ -69,17 +69,17 @@ body {
 }
 .fx-quote-btn .btn-text {
   font-family: Georgia, serif;
-  font-size: 15px;
+  font-size: 13px;
   font-style: italic;
   color: #1B4F72;
-  margin-right: 12px;
+  margin-right: 8px;
   white-space: nowrap;
   transition: color 0.3s ease;
   font-weight: 500;
 }
 .fx-quote-btn .btn-icon {
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: #E8650A;
   display: flex;
