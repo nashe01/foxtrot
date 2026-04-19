@@ -98,7 +98,8 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             <div className="fx-service-num">02</div>
             <div className="fx-service-title">Solar &amp; Renewable Energy</div>
             <div className="fx-service-desc">
-              On-grid and off-grid solar design and installation. Customized energy solutions for domestic, commercial &amp; conservation.
+              On-grid and off-grid solar design and installation. Customized energy solutions for
+              domestic, commercial &amp; conservation.
             </div>
             <div className="fx-service-arrow">→</div>
           </div>
