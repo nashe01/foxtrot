@@ -221,7 +221,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
         onClick={() => onScrollToSection('section-services')}
         aria-label="Back to Core Services on the home page"
       >
-        ← Core Services
+        <span className="fx-services-back-arrow">←</span> Core Services
       </button>
     </div>
   )
