@@ -1,3 +1,5 @@
+import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
+
 type Props = {
   active: boolean
   onScrollToSection: (sectionId: string) => void
@@ -25,7 +27,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
         </p>
       </div>
       <div className="fx-services-page">
-        <div className="fx-service-detail">
+        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.twoWayRadio}>
           <div>
             <div className="fx-sd-tag">Service 01</div>
             <h2 className="fx-sd-title">Two-Way Radio Systems</h2>
@@ -61,7 +63,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail">
+        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.solarRenewable}>
           <div>
             <div className="fx-sd-tag">Service 02</div>
             <h2 className="fx-sd-title">Solar &amp; Renewable Energy</h2>
@@ -97,7 +99,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail">
+        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.energyBackup}>
           <div>
             <div className="fx-sd-tag">Service 03</div>
             <h2 className="fx-sd-title">Energy Backup Solutions</h2>
@@ -132,7 +134,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail">
+        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.technicalInfrastructure}>
           <div>
             <div className="fx-sd-tag">Service 04</div>
             <h2 className="fx-sd-title">Technical Maintenance &amp; Infrastructure</h2>
@@ -168,7 +170,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail">
+        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.smartFarming}>
           <div>
             <div className="fx-sd-tag">Service 05</div>
             <h2 className="fx-sd-title">Smart Farming Technologies</h2>
@@ -213,6 +215,15 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           Request a Quote for Any Service →
         </button>
       </div>
+      <button
+        type="button"
+        className="fx-quote-btn fx-services-back-fab"
+        onClick={() => onScrollToSection('section-services')}
+        aria-label="Back to Core Services on the home page"
+      >
+        <span className="btn-text">Core Services</span>
+        <span className="btn-icon" aria-hidden="true">←</span>
+      </button>
     </div>
   )
 }

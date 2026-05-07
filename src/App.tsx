@@ -48,11 +48,21 @@ export default function App() {
     [showPage],
   )
 
+  const navigateToServicesSection = useCallback((sectionId: string) => {
+    setPage('services')
+    window.setTimeout(() => scrollToId(sectionId), 120)
+  }, [])
+
   return (
     <div className="fx-site">
       <NavBar onNavigate={showPage} onScrollToSection={scrollToSection} />
 
-      <HomePage active={isHome} onNavigate={showPage} onShowToast={showToast} />
+      <HomePage
+        active={isHome}
+        onNavigate={showPage}
+        onNavigateToServiceSection={navigateToServicesSection}
+        onShowToast={showToast}
+      />
       <AboutPage active={isAbout} />
       <ServicesPage active={isServices} onScrollToSection={scrollToSection} />
 

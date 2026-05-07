@@ -8,6 +8,7 @@ type Props = {
 
 export function NavBar({ onNavigate, onScrollToSection }: Props) {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
@@ -19,18 +20,28 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const handleNavigate = (page: Page) => {
+    onNavigate(page)
+    setMenuOpen(false)
+  }
+
+  const handleQuote = () => {
+    onScrollToSection('section-contact')
+    setMenuOpen(false)
+  }
+
   return (
     <nav className={`fx-nav ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="fx-logo" onClick={() => onNavigate('home')} style={{ cursor: 'pointer' }}>
+      <div className="fx-logo" onClick={() => handleNavigate('home')} style={{ cursor: 'pointer' }}>
         <div className="fx-logo-main">FOXTROT</div>
         <div className="fx-logo-sub">Electrocommunication Systems</div>
       </div>
       <div className="fx-nav-links">
-        <a onClick={() => onNavigate('home')}>Home</a>
-        <a onClick={() => onNavigate('about')}>About</a>
-        <a onClick={() => onNavigate('services')}>Services</a>
+        <a onClick={() => handleNavigate('home')}>Home</a>
+        <a onClick={() => handleNavigate('about')}>About</a>
+        <a onClick={() => handleNavigate('services')}>Services</a>
       </div>
-      <button className="fx-quote-btn" onClick={() => onScrollToSection('section-contact')}>
+      <button className="fx-quote-btn" onClick={handleQuote}>
         <span className="btn-text">Get a quote</span>
         <span className="btn-icon">
           <svg viewBox="0 0 24 24" fill="none" width={20} height={20}>
@@ -44,6 +55,24 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
           </svg>
         </span>
       </button>
+      <button
+        className={`fx-menu-btn ${menuOpen ? 'open' : ''}`}
+        aria-label="Toggle navigation menu"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((open) => !open)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+      <div className={`fx-mobile-menu ${menuOpen ? 'open' : ''}`}>
+        <a onClick={() => handleNavigate('home')}>Home</a>
+        <a onClick={() => handleNavigate('about')}>About</a>
+        <a onClick={() => handleNavigate('services')}>Services</a>
+        <button className="fx-mobile-quote-btn" onClick={handleQuote}>
+          Get a quote
+        </button>
+      </div>
     </nav>
   )
 }
