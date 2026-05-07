@@ -150,13 +150,11 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
         <div className="fx-project-layout">
           <div style={{ position: 'relative' }}>
             <div className="fx-project-img">
-              <div className="fx-project-map-bg">
-                <div className="fx-map-dot dot1" />
-                <div className="fx-map-dot dot2" />
-                <span style={{ position: 'relative', zIndex: 1, opacity: 0.3 }}>
-                  Zimbabwe · Conservation Zones
-                </span>
-              </div>
+              <img
+                className="fx-project-photo"
+                src="/key-achievement-tower.png"
+                alt="Technician working on elevated communications tower installation"
+              />
             </div>
             <div className="fx-project-badge">
               <div className="fx-project-badge-num">2024</div>
