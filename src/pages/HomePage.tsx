@@ -1,4 +1,7 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import heroSlideOne from '../assets/1.png'
+import heroSlideTwo from '../assets/2.png'
+import heroSlideThree from '../assets/3.png'
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
 import type { Page } from '../types/page'
 
@@ -10,6 +13,13 @@ type Props = {
 }
 
 export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
+  const heroSlides = useMemo(() => [heroSlideOne, heroSlideTwo, heroSlideThree], [])
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0)
+  const [loadedHeroSlides, setLoadedHeroSlides] = useState<boolean[]>(() =>
+    Array.from({ length: heroSlides.length }, () => false),
+  )
+  const [showHeroText, setShowHeroText] = useState(false)
+
   const tickerItems = useMemo(
     () => [
       'Two-Way Radio Systems',
@@ -21,10 +31,100 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     ],
     [],
   )
+  const serviceCards = useMemo(
+    () => [
+      {
+        number: '01',
+        sectionId: SERVICE_SECTION_IDS.twoWayRadio,
+        brand: 'HYTERA',
+        model: 'DMR PRO',
+        tagline: 'Critical comms for mission-ready teams.',
+        title: 'Two-Way Radio Systems',
+      },
+      {
+        number: '02',
+        sectionId: SERVICE_SECTION_IDS.solarRenewable,
+        brand: 'FOXTROT ENERGY',
+        model: 'SOLAR GRID+',
+        tagline: 'Efficient clean power for remote operations.',
+        title: 'Solar & Renewable Energy',
+      },
+      {
+        number: '03',
+        sectionId: SERVICE_SECTION_IDS.energyBackup,
+        brand: 'POWERVAULT',
+        model: 'BACKUP 24/7',
+        tagline: 'Always-on resilience when the grid goes down.',
+        title: 'Energy Backup Solutions',
+      },
+      {
+        number: '04',
+        sectionId: SERVICE_SECTION_IDS.technicalInfrastructure,
+        brand: 'INFRA TECH',
+        model: 'MAST OPS',
+        tagline: 'Reliable infrastructure built for hard terrain.',
+        title: 'Technical Infrastructure',
+      },
+      {
+        number: '05',
+        sectionId: SERVICE_SECTION_IDS.smartFarming,
+        brand: 'AGRI SMART',
+        model: 'FIELD SENSE',
+        tagline: 'Data-driven farming for sustainable growth.',
+        title: 'Smart Farming Technologies',
+      },
+    ],
+    [],
+  )
+
+  useEffect(() => {
+    const slideIntervalId = window.setInterval(() => {
+      setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
+    }, 7000)
+
+    return () => window.clearInterval(slideIntervalId)
+  }, [heroSlides.length])
+
+  useEffect(() => {
+    setShowHeroText(false)
+
+    if (loadedHeroSlides[activeHeroSlide]) {
+      const textRevealTimeoutId = window.setTimeout(() => {
+        setShowHeroText(true)
+      }, 1000)
+
+      return () => window.clearTimeout(textRevealTimeoutId)
+    }
+  }, [activeHeroSlide, loadedHeroSlides])
+
+  const markHeroSlideAsLoaded = (slideIndex: number) => {
+    setLoadedHeroSlides((prev) => {
+      if (prev[slideIndex]) {
+        return prev
+      }
+
+      const next = [...prev]
+      next[slideIndex] = true
+      return next
+    })
+
+  }
 
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-home">
       <section className="fx-hero">
+        <div className="fx-hero-media" aria-hidden="true">
+          {heroSlides.map((slideSrc, idx) => (
+            <img
+              key={slideSrc}
+              className={`fx-hero-slide ${idx === activeHeroSlide ? 'active' : ''}`}
+              src={slideSrc}
+              alt=""
+              onLoad={() => markHeroSlideAsLoaded(idx)}
+              onError={() => markHeroSlideAsLoaded(idx)}
+            />
+          ))}
+        </div>
         <div className="fx-hero-bg" />
         <div className="fx-hero-grid" />
         {/*<div className="fx-radar">
@@ -35,26 +135,31 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
         </div>*/}
-        <div className="fx-hero-content">
-          <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
-          <h1 className="fx-hero-title">
-            Connecting
-            <br />
-            <span>Africa.</span>
-            <br />
-            Empowering
-            <br />
-          </h1>
-          <p className="fx-hero-sub">
-            Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
-            — delivering operational excellence in every community we serve.
-          </p>
-          <div className="fx-hero-actions">
-            <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
-              Our Story
-            </button>
+        {showHeroText && (
+          <div
+            className="fx-hero-content fx-hero-content-animate"
+            key={`hero-text-${heroSlides[activeHeroSlide]}`}
+          >
+            <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
+            <h1 className="fx-hero-title">
+              Connecting
+              <br />
+              <span>Africa.</span>
+              <br />
+              Empowering
+              <br />
+            </h1>
+            <p className="fx-hero-sub">
+              Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
+              — delivering operational excellence in every community we serve.
+            </p>
+            <div className="fx-hero-actions">
+              <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
+                Our Story
+              </button>
+            </div>
           </div>
-        </div>
+        )}
         
       </section>
 
@@ -78,67 +183,28 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </h2>
         </div>
         <div className="fx-services-grid">
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.twoWayRadio)}
-          >
-            <div className="fx-service-num">01</div>
-            <div className="fx-service-title">Two-Way Radio Systems</div>
-            <div className="fx-service-desc">
-              VHF, HF and POC radio supply, installation &amp; maintenance. Expert digital migration
-              and repeater installations.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.solarRenewable)}
-          >
-            <div className="fx-service-num">02</div>
-            <div className="fx-service-title">Solar &amp; Renewable Energy</div>
-            <div className="fx-service-desc">
-              On-grid and off-grid solar design and installation. Customized energy solutions for
-              domestic, commercial &amp; conservation.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.energyBackup)}
-          >
-            <div className="fx-service-num">03</div>
-            <div className="fx-service-title">Energy Backup Solutions</div>
-            <div className="fx-service-desc">
-              Reliable backup systems protecting critical operations against power interruptions 24/7.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.technicalInfrastructure)}
-          >
-            <div className="fx-service-num">04</div>
-            <div className="fx-service-title">Technical Infrastructure</div>
-            <div className="fx-service-desc">
-              Rigging, mast construction, outdoor &amp; indoor cabinet design. Comprehensive system servicing and upgrades.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.smartFarming)}
-          >
-            <div className="fx-service-num">05</div>
-            <div className="fx-service-title">Smart Farming Technologies</div>
-            <div className="fx-service-desc">
-              Innovative agricultural tech and sustainable energy solutions supporting modern farming operations across Zimbabwe.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
+          {serviceCards.map((card) => (
+            <article
+              className="fx-service-product-card"
+              key={card.sectionId}
+              onClick={() => onNavigateToServiceSection(card.sectionId)}
+            >
+              <div className="fx-service-thumb">
+                <div className="fx-service-play-btn" aria-hidden="true">
+                  ▶
+                </div>
+                <div className="fx-service-thumb-meta">
+                  <div className="fx-service-brand-row">
+                    <span className="fx-service-num">{card.number}</span>
+                    <span className="fx-service-brand">{card.brand}</span>
+                    <span className="fx-service-model">{card.model}</span>
+                  </div>
+                  <div className="fx-service-tagline">{card.tagline}</div>
+                </div>
+              </div>
+              <div className="fx-service-float-title">{card.title}</div>
+            </article>
+          ))}
         </div>
       </section>
 
