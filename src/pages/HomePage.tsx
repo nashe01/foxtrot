@@ -40,6 +40,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     () => [
       {
         sectionId: SERVICE_SECTION_IDS.twoWayRadio,
+        
         title: 'Two-Way Radio Systems',
         description:
           'VHF, HF and POC radio supply, installation, maintenance, and reliable repeater network deployment.',
@@ -47,7 +48,6 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       },
       {
         sectionId: SERVICE_SECTION_IDS.solarRenewable,
-        
         title: 'Solar & Renewable Energy',
         description:
           'On-grid and off-grid solar design and installation tailored to domestic, commercial, and conservation needs.',
@@ -184,6 +184,14 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </h2>
         </div>
         <div className="fx-services-grid">
+          <div className="fx-services-intro">
+            <p className="fx-services-intro-text">
+              Foxtrot Systems delivers end‑to‑end solutions across communications, renewable energy, and smart
+              farming—built for performance in remote, high‑demand environments. From design and installation
+              to maintenance and upgrades, we ensure dependable systems that keep your operations connected,
+              powered, and future‑ready.
+            </p>
+          </div>
           {serviceCards.map((card) => (
             <article
               className="fx-service-product-card"

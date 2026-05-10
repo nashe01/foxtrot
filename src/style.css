@@ -195,8 +195,23 @@ body {
 
 .fx-services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+.fx-services-intro {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.fx-services-intro-text {
+  color: #1A5276;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .fx-service-product-card {
@@ -286,8 +301,8 @@ body {
   position: absolute;
   left: 14px;
   right: 14px;
-  bottom: 0;
-  width: 62%;
+  bottom: -22px;
+  width: 90%;
   min-width: 185px;
   background: #ffffff;
   border: 1px solid #e3e6eb;
@@ -315,6 +330,11 @@ body {
     width: calc(100% - 28px);
     min-width: 0;
   }
+}
+
+@media (max-width: 900px) {
+  .fx-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .fx-services-intro { grid-column: 1 / -1; }
 }
 
 .fx-project-section { background: var(--dark); padding: 100px 60px; }
