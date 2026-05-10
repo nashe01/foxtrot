@@ -25,6 +25,27 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
   )
   const [showHeroText, setShowHeroText] = useState(false)
 
+  const heroSlideContent = useMemo(
+    () => [
+      {
+        titleLines: ['Hytera', 'Radio Services'],
+        description:
+          'Hytera two-way radio solutions — supply, installation, programming, maintenance, and dependable coverage for mission-critical teams.',
+      },
+      {
+        titleLines: ['Solar', 'Installations'],
+        description:
+          'On-grid and off-grid solar installations tailored to homes, businesses, and remote sites — designed for reliability, performance, and long-term savings.',
+      },
+      {
+        titleLines: ['Masts', ' Infrastructure'],
+        description:
+          'Mast construction, rigging, and technical infrastructure — engineered builds, safe deployments, and end-to-end servicing for resilient networks.',
+      },
+    ],
+    [],
+  )
+
   const tickerItems = useMemo(
     () => [
       'Two-Way Radio Systems',
@@ -92,7 +113,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     if (loadedHeroSlides[activeHeroSlide]) {
       const textRevealTimeoutId = window.setTimeout(() => {
         setShowHeroText(true)
-      }, 1000)
+      }, 500)
 
       return () => window.clearTimeout(textRevealTimeoutId)
     }
@@ -143,16 +164,20 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           >
             <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
             <h1 className="fx-hero-title">
-              Connecting
-              <br />
-              <span>Africa.</span>
-              <br />
-              Empowering
-              <br />
+              {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
+                <span
+                  key={`${activeHeroSlide}-title-${line}`}
+                  style={{
+                    display: 'block',
+                    color: idx === 0 ? 'var(--text)' : 'var(--red)',
+                  }}
+                >
+                  {line}
+                </span>
+              ))}
             </h1>
             <p className="fx-hero-sub">
-              Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
-              — delivering operational excellence in every community we serve.
+              {heroSlideContent[activeHeroSlide].description}
             </p>
             <div className="fx-hero-actions">
               <button className="fx-btn-outline" onClick={() => onNavigate('about')}>

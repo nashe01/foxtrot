@@ -1,4 +1,5 @@
 import type { Page } from '../../types/page'
+import logo from '../../assets/foxtrot-logo.png'
 
 type Props = {
   onNavigate: (page: Page) => void
@@ -10,7 +11,7 @@ export function Footer({ onNavigate, onScrollToSection }: Props) {
     <footer className="fx-footer">
       <div className="fx-footer-top">
         <div>
-          <div className="fx-footer-logo-main">FOXTROT</div>
+          <img className="fx-footer-logo-img" src={logo} alt="Foxtrot Systems" />
           <div
             style={{
               fontSize: 11,

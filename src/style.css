@@ -48,6 +48,11 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 .fx-logo { display: flex; flex-direction: column; }
+.fx-logo-img {
+  height: 106px;
+  width: auto;
+  object-fit: contain;
+}
 .fx-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--red); line-height:1; }
 .fx-logo-sub { font-size: 9px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; }
 .fx-nav-links { display: flex; gap: 44px; }
@@ -427,6 +432,12 @@ body {
 .fx-footer { background: #ffffff; padding: 64px 60px 32px; border-top: 2px solid #E8650A; }
 .fx-footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
 .fx-footer-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 3px; }
+.fx-footer-logo-img {
+  height: 136px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
 .fx-footer-tagline { font-size: 13px; color: var(--gray); margin-top: 8px; line-height: 1.6; max-width: 280px; }
 .fx-footer-col-title { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--text); font-weight: 700; margin-bottom: 20px; }
 .fx-footer-links { display: flex; flex-direction: column; gap: 10px; }
