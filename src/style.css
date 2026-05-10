@@ -440,8 +440,11 @@ body {
 .fx-about-intro { font-size: 20px; line-height: 1.8; color: #000000; }
 .fx-about-intro strong { color: var(--red); font-weight: 600; }
 
+.fx-about-vision-band { background: var(--dark); padding: 80px 60px; }
+.fx-about-vision-mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+
 .fx-values-section { padding: 80px 60px; background: var(--dark); }
-.fx-values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--dark3); margin-top: 48px; }
+.fx-values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--red); margin-top: 48px; }
 .fx-value-card { background: var(--dark); padding: 40px 32px; border-top: 3px solid transparent; transition: border-color 0.3s; }
 .fx-value-card:hover { border-top-color: var(--red); }
 .fx-value-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
@@ -694,6 +697,17 @@ body {
     order: 0;
   }
 
+  .fx-about-vision-band {
+    padding: 56px 24px;
+  }
+  .fx-about-vision-mission-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .fx-team-grid {
+    grid-template-columns: 1fr;
+  }
+
   .fx-sd-layout {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(180px, 1fr) auto auto;
@@ -783,6 +797,10 @@ body {
   .fx-team-section,
   .fx-about-hero,
   .fx-footer {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .fx-about-vision-band {
     padding-left: 14px;
     padding-right: 14px;
   }

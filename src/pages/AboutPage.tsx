@@ -20,8 +20,8 @@ export function AboutPage({ active }: Props) {
         </div>
       </div>
 
-      <div style={{ background: 'var(--dark)', padding: '80px 60px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
+      <div className="fx-about-vision-band">
+        <div className="fx-about-vision-mission-grid">
           <div>
             <div className="fx-section-label">Vision</div>
             <h3
