@@ -237,9 +237,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               {heroSlideContent[activeHeroSlide].description}
             </p>
             <div className="fx-hero-actions">
-              <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
-                Our Story
-              </button>
+              
             </div>
           </div>
         )}
@@ -282,9 +280,6 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             >
               <div className="fx-service-thumb">
                 <img className="fx-service-thumb-image" src={card.image} alt={card.title} />
-                <div className="fx-service-play-btn" aria-hidden="true">
-                  ▶
-                </div>
                 <div className="fx-service-thumb-meta">
                   <div className="fx-service-brand-row">
                   </div>
