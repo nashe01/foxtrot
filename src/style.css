@@ -333,7 +333,12 @@ body {
   color: #4d5f73;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 900px) {
+  .fx-services-grid { grid-template-columns: repeat(2, 1fr); }
+  .fx-services-intro { grid-column: 1 / -1; }
+}
+
+@media (max-width: 640px) {
   .fx-services-grid { grid-template-columns: 1fr; }
   .fx-service-float-title {
     width: calc(100% - 28px);
@@ -345,11 +350,6 @@ body {
   .fx-service-float-desc {
     font-size: 12px;
   }
-}
-
-@media (max-width: 900px) {
-  .fx-services-grid { grid-template-columns: repeat(2, 1fr); }
-  .fx-services-intro { grid-column: 1 / -1; }
 }
 
 .fx-project-section { background: var(--dark); padding: 100px 60px; }
