@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import emailjs from '@emailjs/browser'
 import heroSlideOne from '../assets/1.png'
 import heroSlideTwo from '../assets/2.png'
 import heroSlideThree from '../assets/3.png'
@@ -24,6 +25,13 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     Array.from({ length: heroSlides.length }, () => false),
   )
   const [showHeroText, setShowHeroText] = useState(false)
+  const [quoteName, setQuoteName] = useState('')
+  const [quoteOrg, setQuoteOrg] = useState('')
+  const [quotePhone, setQuotePhone] = useState('')
+  const [quoteEmail, setQuoteEmail] = useState('')
+  const [quoteService, setQuoteService] = useState('')
+  const [quoteMessage, setQuoteMessage] = useState('')
+  const [quoteSending, setQuoteSending] = useState(false)
 
   const heroSlideContent = useMemo(
     () => [
@@ -130,6 +138,55 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       return next
     })
 
+  }
+
+  const submitQuoteRequest = async () => {
+    if (quoteSending) return
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined
+
+    if (!serviceId || !templateId || !publicKey) {
+      onShowToast('Email service is not configured yet.')
+      return
+    }
+
+    if (!quoteName.trim() || !quotePhone.trim() || !quoteMessage.trim()) {
+      onShowToast('Please fill in your name, phone, and requirements.')
+      return
+    }
+
+    setQuoteSending(true)
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: 'technicalsales@foxtrot-sytems.com',
+          from_name: quoteName.trim(),
+          reply_to: quoteEmail.trim() || undefined,
+          organisation: quoteOrg.trim() || '-',
+          phone: quotePhone.trim(),
+          service_required: quoteService || '-',
+          message: quoteMessage.trim(),
+          source: 'Foxtrot website quote form',
+        },
+        { publicKey },
+      )
+
+      onShowToast('Quote request sent! We will contact you within 24 hours.')
+      setQuoteName('')
+      setQuoteOrg('')
+      setQuotePhone('')
+      setQuoteEmail('')
+      setQuoteService('')
+      setQuoteMessage('')
+    } catch {
+      onShowToast('Failed to send. Please try again or call us.')
+    } finally {
+      setQuoteSending(false)
+    }
   }
 
   return (
@@ -397,7 +454,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             </div>
             <div>
               <div className="fx-contact-item-label">Email</div>
-              <div className="fx-contact-item-val">foxtrot_systems@aol.com</div>
+              <div className="fx-contact-item-val">technicalsales@foxtrot-sytems.com</div>
             </div>
             <div>
               <div className="fx-contact-item-label">Business Hours</div>
@@ -410,14 +467,42 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </div>
           <div className="fx-contact-form">
             <div className="fx-form-row">
-              <input className="fx-input" placeholder="Full Name" type="text" />
-              <input className="fx-input" placeholder="Organisation" type="text" />
+              <input
+                className="fx-input"
+                placeholder="Full Name"
+                type="text"
+                value={quoteName}
+                onChange={(e) => setQuoteName(e.target.value)}
+              />
+              <input
+                className="fx-input"
+                placeholder="Organisation"
+                type="text"
+                value={quoteOrg}
+                onChange={(e) => setQuoteOrg(e.target.value)}
+              />
             </div>
             <div className="fx-form-row">
-              <input className="fx-input" placeholder="Phone / WhatsApp" type="tel" />
-              <input className="fx-input" placeholder="Email Address" type="email" />
+              <input
+                className="fx-input"
+                placeholder="Phone / WhatsApp"
+                type="tel"
+                value={quotePhone}
+                onChange={(e) => setQuotePhone(e.target.value)}
+              />
+              <input
+                className="fx-input"
+                placeholder="Email Address"
+                type="email"
+                value={quoteEmail}
+                onChange={(e) => setQuoteEmail(e.target.value)}
+              />
             </div>
-            <select className="fx-select" defaultValue="">
+            <select
+              className="fx-select"
+              value={quoteService}
+              onChange={(e) => setQuoteService(e.target.value)}
+            >
               <option value="" disabled>
                 Select Service Required
               </option>
@@ -428,13 +513,20 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               <option>Smart Farming Technologies</option>
               <option>Multiple Services</option>
             </select>
-            <textarea className="fx-textarea" placeholder="Describe your project or requirements..." />
+            <textarea
+              className="fx-textarea"
+              placeholder="Describe your project or requirements..."
+              value={quoteMessage}
+              onChange={(e) => setQuoteMessage(e.target.value)}
+            />
             <button
               className="fx-btn-primary"
               style={{ width: '100%', padding: 16, fontSize: 13 }}
-              onClick={() => onShowToast('Quote request sent! We will contact you within 24 hours.')}
+              onClick={submitQuoteRequest}
+              disabled={quoteSending}
+              aria-disabled={quoteSending}
             >
-              Submit Quote Request →
+              {quoteSending ? 'Sending…' : 'Submit Quote Request →'}
             </button>
           </div>
         </div>
