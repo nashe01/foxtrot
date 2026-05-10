@@ -1,3 +1,5 @@
+import logo from '../assets/foxtrot-logo.png'
+
 type Props = {
   active: boolean
 }
@@ -6,17 +8,22 @@ export function AboutPage({ active }: Props) {
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-about">
       <div className="fx-about-hero">
-        <div style={{ maxWidth: 700, position: 'relative', zIndex: 2 }}>
-          <div className="fx-section-label">Our Story</div>
-          <h1 className="fx-section-title" style={{ margin: '16px 0 32px' }}>
-            About <em>Foxtrot</em>
-          </h1>
-          <p className="fx-about-intro">
-            Foxtrot Electrocommunication Systems is Zimbabwe&apos;s leading integrator of{' '}
-            <strong>communication, energy, and smart farming technologies</strong>. Built on a decade
-            of hands-on experience, we connect communities, power conservation, and drive sustainable
-            growth across Africa.
-          </p>
+        <div className="fx-about-story-layout">
+          <div className="fx-about-story-copy">
+            <div className="fx-section-label">Our Story</div>
+            <h1 className="fx-section-title" style={{ margin: '16px 0 32px' }}>
+              About <em>Foxtrot</em>
+            </h1>
+            <p className="fx-about-intro">
+              Foxtrot Electrocommunication Systems is Zimbabwe&apos;s leading integrator of{' '}
+              <strong>communication, energy, and smart farming technologies</strong>. Built on a decade
+              of hands-on experience, we connect communities, power conservation, and drive sustainable
+              growth across Africa.
+            </p>
+          </div>
+          <div className="fx-about-story-logoWrap">
+            <img className="fx-about-story-logo" src={logo} alt="Foxtrot Systems" />
+          </div>
         </div>
       </div>
 

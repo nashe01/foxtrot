@@ -436,9 +436,41 @@ body {
 .fx-whatsapp svg { width: 28px; height: 28px; fill: white; }
 
 .fx-about-hero { padding: 120px 60px 80px; background: var(--black); position: relative; overflow: hidden; }
-.fx-about-hero::before { content: 'FOXTROT'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: rgba(232,101,10,0.04); letter-spacing: 8px; white-space: nowrap; pointer-events: none; }
 .fx-about-intro { font-size: 20px; line-height: 1.8; color: #000000; }
 .fx-about-intro strong { color: var(--red); font-weight: 600; }
+
+.fx-about-story-layout {
+  position: relative;
+  z-index: 2;
+  max-width: 1220px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 580px) minmax(260px, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+.fx-about-story-copy {
+  position: relative;
+  z-index: 2;
+}
+.fx-about-story-logoWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.fx-about-story-logo {
+  display: block;
+  width: clamp(300px, 42vw, 720px);
+  height: auto;
+  max-width: 100%;
+}
 
 .fx-about-vision-band { background: var(--dark); padding: 80px 60px; }
 .fx-about-vision-mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
@@ -684,6 +716,16 @@ body {
   .fx-about-hero {
     padding-left: 24px;
     padding-right: 24px;
+  }
+  .fx-about-story-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .fx-about-story-logoWrap {
+    justify-content: flex-start;
+  }
+  .fx-about-story-logo {
+    width: clamp(260px, 72vw, 520px);
   }
   .fx-project-layout,
   .fx-why-layout,
