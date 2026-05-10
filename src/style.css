@@ -196,7 +196,7 @@ body {
 .fx-services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 64px 24px;
 }
 
 .fx-services-intro {
@@ -228,7 +228,7 @@ body {
   position: relative;
   aspect-ratio: 4 / 3;
   background: linear-gradient(160deg, #111823 0%, #0a0f15 100%);
-  border: 1px solid #253041;
+  border: 2px solid #E8650A;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -301,25 +301,29 @@ body {
   position: absolute;
   left: 14px;
   right: 14px;
-  bottom: -22px;
-  width: 90%;
+  bottom: -34px;
+  width: 95%;
   min-width: 185px;
+  min-height: 92px;
   background: #ffffff;
-  border: 1px solid #e3e6eb;
+  border: 2px solid #E8650A;
   border-radius: 10px;
   box-shadow: 0 10px 18px rgba(9, 15, 25, 0.14);
   padding: 10px 12px;
   color: #123953;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .fx-service-float-title-text {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 .fx-service-float-desc {
   margin-top: 6px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.35;
   color: #4d5f73;
 }
@@ -329,6 +333,12 @@ body {
   .fx-service-float-title {
     width: calc(100% - 28px);
     min-width: 0;
+  }
+  .fx-service-float-title-text {
+    font-size: 15px;
+  }
+  .fx-service-float-desc {
+    font-size: 12px;
   }
 }
 
