@@ -2,6 +2,11 @@ import { useEffect, useMemo, useState } from 'react'
 import heroSlideOne from '../assets/1.png'
 import heroSlideTwo from '../assets/2.png'
 import heroSlideThree from '../assets/3.png'
+import serviceImageOne from '../assets/services/1.jpeg'
+import serviceImageTwo from '../assets/services/2.jpeg'
+import serviceImageThree from '../assets/services/3.jpeg'
+import serviceImageSix from '../assets/services/6.jpg'
+import serviceImageSeven from '../assets/services/7.jpeg'
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
 import type { Page } from '../types/page'
 
@@ -34,44 +39,40 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
   const serviceCards = useMemo(
     () => [
       {
-        number: '01',
         sectionId: SERVICE_SECTION_IDS.twoWayRadio,
-        brand: 'HYTERA',
-        model: 'DMR PRO',
-        tagline: 'Critical comms for mission-ready teams.',
         title: 'Two-Way Radio Systems',
+        description:
+          'VHF, HF and POC radio supply, installation, maintenance, and reliable repeater network deployment.',
+        image: serviceImageSeven,
       },
       {
-        number: '02',
         sectionId: SERVICE_SECTION_IDS.solarRenewable,
-        brand: 'FOXTROT ENERGY',
-        model: 'SOLAR GRID+',
-        tagline: 'Efficient clean power for remote operations.',
+        
         title: 'Solar & Renewable Energy',
+        description:
+          'On-grid and off-grid solar design and installation tailored to domestic, commercial, and conservation needs.',
+        image: serviceImageTwo,
       },
       {
-        number: '03',
         sectionId: SERVICE_SECTION_IDS.energyBackup,
-        brand: 'POWERVAULT',
-        model: 'BACKUP 24/7',
-        tagline: 'Always-on resilience when the grid goes down.',
         title: 'Energy Backup Solutions',
+        description:
+          'Critical backup systems that keep operations running during outages and unstable grid conditions.',
+        image: serviceImageOne,
       },
       {
-        number: '04',
         sectionId: SERVICE_SECTION_IDS.technicalInfrastructure,
-        brand: 'INFRA TECH',
-        model: 'MAST OPS',
-        tagline: 'Reliable infrastructure built for hard terrain.',
         title: 'Technical Infrastructure',
+        description:
+          'Rigging, mast construction, and cabinet infrastructure design with end-to-end system servicing.',
+        image: serviceImageSix,
       },
       {
-        number: '05',
         sectionId: SERVICE_SECTION_IDS.smartFarming,
-        brand: 'AGRI SMART',
-        model: 'FIELD SENSE',
-        tagline: 'Data-driven farming for sustainable growth.',
         title: 'Smart Farming Technologies',
+        description:
+          'Modern agri-tech integrations that improve productivity with sustainable energy and smart field monitoring.',
+        image: serviceImageThree,
       },
     ],
     [],
@@ -190,19 +191,19 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               onClick={() => onNavigateToServiceSection(card.sectionId)}
             >
               <div className="fx-service-thumb">
+                <img className="fx-service-thumb-image" src={card.image} alt={card.title} />
                 <div className="fx-service-play-btn" aria-hidden="true">
                   ▶
                 </div>
                 <div className="fx-service-thumb-meta">
                   <div className="fx-service-brand-row">
-                    <span className="fx-service-num">{card.number}</span>
-                    <span className="fx-service-brand">{card.brand}</span>
-                    <span className="fx-service-model">{card.model}</span>
                   </div>
-                  <div className="fx-service-tagline">{card.tagline}</div>
                 </div>
               </div>
-              <div className="fx-service-float-title">{card.title}</div>
+              <div className="fx-service-float-title">
+                <div className="fx-service-float-title-text">{card.title}</div>
+                <p className="fx-service-float-desc">{card.description}</p>
+              </div>
             </article>
           ))}
         </div>
