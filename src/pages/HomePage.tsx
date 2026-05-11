@@ -1,4 +1,13 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import emailjs from '@emailjs/browser'
+import heroSlideOne from '../assets/1.png'
+import heroSlideTwo from '../assets/2.png'
+import heroSlideThree from '../assets/3.png'
+import serviceImageOne from '../assets/services/1.jpeg'
+import serviceImageTwo from '../assets/services/2.jpeg'
+import serviceImageThree from '../assets/services/3.jpeg'
+import serviceImageSix from '../assets/services/6.jpg'
+import serviceImageSeven from '../assets/services/7.jpeg'
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
 import type { Page } from '../types/page'
 
@@ -10,6 +19,41 @@ type Props = {
 }
 
 export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
+  const heroSlides = useMemo(() => [heroSlideOne, heroSlideTwo, heroSlideThree], [])
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0)
+  const [loadedHeroSlides, setLoadedHeroSlides] = useState<boolean[]>(() =>
+    Array.from({ length: heroSlides.length }, () => false),
+  )
+  const [showHeroText, setShowHeroText] = useState(false)
+  const [quoteName, setQuoteName] = useState('')
+  const [quoteOrg, setQuoteOrg] = useState('')
+  const [quotePhone, setQuotePhone] = useState('')
+  const [quoteEmail, setQuoteEmail] = useState('')
+  const [quoteService, setQuoteService] = useState('')
+  const [quoteMessage, setQuoteMessage] = useState('')
+  const [quoteSending, setQuoteSending] = useState(false)
+
+  const heroSlideContent = useMemo(
+    () => [
+      {
+        titleLines: ['Hytera', 'Radio Services'],
+        description:
+          'Hytera two-way radio solutions — supply, installation, programming, maintenance, and dependable coverage for mission-critical teams.',
+      },
+      {
+        titleLines: ['Solar', 'Installations'],
+        description:
+          'On-grid and off-grid solar installations tailored to homes, businesses, and remote sites — designed for reliability, performance, and long-term savings.',
+      },
+      {
+        titleLines: ['Masts', ' Infrastructure'],
+        description:
+          'Mast construction, rigging, and technical infrastructure — engineered builds, safe deployments, and end-to-end servicing for resilient networks.',
+      },
+    ],
+    [],
+  )
+
   const tickerItems = useMemo(
     () => [
       'Two-Way Radio Systems',
@@ -21,10 +65,145 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     ],
     [],
   )
+  const serviceCards = useMemo(
+    () => [
+      {
+        sectionId: SERVICE_SECTION_IDS.twoWayRadio,
+        
+        title: 'Two-Way Radio Systems',
+        description:
+          'VHF, HF and POC radio supply, installation, maintenance, and reliable repeater network deployment.',
+        image: serviceImageSeven,
+      },
+      {
+        sectionId: SERVICE_SECTION_IDS.solarRenewable,
+        title: 'Solar & Renewable Energy',
+        description:
+          'On-grid and off-grid solar design and installation tailored to domestic, commercial, and conservation needs.',
+        image: serviceImageTwo,
+      },
+      {
+        sectionId: SERVICE_SECTION_IDS.energyBackup,
+        title: 'Energy Backup Solutions',
+        description:
+          'Critical backup systems that keep operations running during outages and unstable grid conditions.',
+        image: serviceImageOne,
+      },
+      {
+        sectionId: SERVICE_SECTION_IDS.technicalInfrastructure,
+        title: 'Technical Infrastructure',
+        description:
+          'Rigging, mast construction, and cabinet infrastructure design with end-to-end system servicing.',
+        image: serviceImageSix,
+      },
+      {
+        sectionId: SERVICE_SECTION_IDS.smartFarming,
+        title: 'Smart Farming Technologies',
+        description:
+          'Modern agri-tech integrations that improve productivity with sustainable energy and smart field monitoring.',
+        image: serviceImageThree,
+      },
+    ],
+    [],
+  )
+
+  useEffect(() => {
+    const slideIntervalId = window.setInterval(() => {
+      setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
+    }, 7000)
+
+    return () => window.clearInterval(slideIntervalId)
+  }, [heroSlides.length])
+
+  useEffect(() => {
+    setShowHeroText(false)
+
+    if (loadedHeroSlides[activeHeroSlide]) {
+      const textRevealTimeoutId = window.setTimeout(() => {
+        setShowHeroText(true)
+      }, 500)
+
+      return () => window.clearTimeout(textRevealTimeoutId)
+    }
+  }, [activeHeroSlide, loadedHeroSlides])
+
+  const markHeroSlideAsLoaded = (slideIndex: number) => {
+    setLoadedHeroSlides((prev) => {
+      if (prev[slideIndex]) {
+        return prev
+      }
+
+      const next = [...prev]
+      next[slideIndex] = true
+      return next
+    })
+
+  }
+
+  const submitQuoteRequest = async () => {
+    if (quoteSending) return
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined
+
+    if (!serviceId || !templateId || !publicKey) {
+      onShowToast('Email service is not configured yet.')
+      return
+    }
+
+    if (!quoteName.trim() || !quotePhone.trim() || !quoteMessage.trim()) {
+      onShowToast('Please fill in your name, phone, and requirements.')
+      return
+    }
+
+    setQuoteSending(true)
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: 'technicalsales@foxtrot-sytems.com',
+          from_name: quoteName.trim(),
+          reply_to: quoteEmail.trim() || undefined,
+          organisation: quoteOrg.trim() || '-',
+          phone: quotePhone.trim(),
+          service_required: quoteService || '-',
+          message: quoteMessage.trim(),
+          source: 'Foxtrot website quote form',
+        },
+        { publicKey },
+      )
+
+      onShowToast('Quote request sent! We will contact you within 24 hours.')
+      setQuoteName('')
+      setQuoteOrg('')
+      setQuotePhone('')
+      setQuoteEmail('')
+      setQuoteService('')
+      setQuoteMessage('')
+    } catch {
+      onShowToast('Failed to send. Please try again or call us.')
+    } finally {
+      setQuoteSending(false)
+    }
+  }
 
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-home">
       <section className="fx-hero">
+        <div className="fx-hero-media" aria-hidden="true">
+          {heroSlides.map((slideSrc, idx) => (
+            <img
+              key={slideSrc}
+              className={`fx-hero-slide ${idx === activeHeroSlide ? 'active' : ''}`}
+              src={slideSrc}
+              alt=""
+              onLoad={() => markHeroSlideAsLoaded(idx)}
+              onError={() => markHeroSlideAsLoaded(idx)}
+            />
+          ))}
+        </div>
         <div className="fx-hero-bg" />
         <div className="fx-hero-grid" />
         {/*<div className="fx-radar">
@@ -35,26 +214,33 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
         </div>*/}
-        <div className="fx-hero-content">
-          <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
-          <h1 className="fx-hero-title">
-            Connecting
-            <br />
-            <span>Africa.</span>
-            <br />
-            Empowering
-            <br />
-          </h1>
-          <p className="fx-hero-sub">
-            Zimbabwe&apos;s leading integrator of communication, energy, and smart farming technologies
-            — delivering operational excellence in every community we serve.
-          </p>
-          <div className="fx-hero-actions">
-            <button className="fx-btn-outline" onClick={() => onNavigate('about')}>
-              Our Story
-            </button>
+        {showHeroText && (
+          <div
+            className="fx-hero-content fx-hero-content-animate"
+            key={`hero-text-${heroSlides[activeHeroSlide]}`}
+          >
+            <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
+            <h1 className="fx-hero-title">
+              {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
+                <span
+                  key={`${activeHeroSlide}-title-${line}`}
+                  style={{
+                    display: 'block',
+                    color: idx === 0 ? 'var(--text)' : 'var(--red)',
+                  }}
+                >
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p className="fx-hero-sub">
+              {heroSlideContent[activeHeroSlide].description}
+            </p>
+            <div className="fx-hero-actions">
+              
+            </div>
           </div>
-        </div>
+        )}
         
       </section>
 
@@ -78,67 +264,33 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </h2>
         </div>
         <div className="fx-services-grid">
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.twoWayRadio)}
-          >
-            <div className="fx-service-num">01</div>
-            <div className="fx-service-title">Two-Way Radio Systems</div>
-            <div className="fx-service-desc">
-              VHF, HF and POC radio supply, installation &amp; maintenance. Expert digital migration
-              and repeater installations.
-            </div>
-            <div className="fx-service-arrow">→</div>
+          <div className="fx-services-intro">
+            <p className="fx-services-intro-text">
+              Foxtrot Systems delivers end‑to‑end solutions across communications, renewable energy, and smart
+              farming—built for performance in remote, high‑demand environments. From design and installation
+              to maintenance and upgrades, we ensure dependable systems that keep your operations connected,
+              powered, and future‑ready.
+            </p>
           </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.solarRenewable)}
-          >
-            <div className="fx-service-num">02</div>
-            <div className="fx-service-title">Solar &amp; Renewable Energy</div>
-            <div className="fx-service-desc">
-              On-grid and off-grid solar design and installation. Customized energy solutions for
-              domestic, commercial &amp; conservation.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.energyBackup)}
-          >
-            <div className="fx-service-num">03</div>
-            <div className="fx-service-title">Energy Backup Solutions</div>
-            <div className="fx-service-desc">
-              Reliable backup systems protecting critical operations against power interruptions 24/7.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.technicalInfrastructure)}
-          >
-            <div className="fx-service-num">04</div>
-            <div className="fx-service-title">Technical Infrastructure</div>
-            <div className="fx-service-desc">
-              Rigging, mast construction, outdoor &amp; indoor cabinet design. Comprehensive system servicing and upgrades.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
-
-          <div
-            className="fx-service-card"
-            onClick={() => onNavigateToServiceSection(SERVICE_SECTION_IDS.smartFarming)}
-          >
-            <div className="fx-service-num">05</div>
-            <div className="fx-service-title">Smart Farming Technologies</div>
-            <div className="fx-service-desc">
-              Innovative agricultural tech and sustainable energy solutions supporting modern farming operations across Zimbabwe.
-            </div>
-            <div className="fx-service-arrow">→</div>
-          </div>
+          {serviceCards.map((card) => (
+            <article
+              className="fx-service-product-card"
+              key={card.sectionId}
+              onClick={() => onNavigateToServiceSection(card.sectionId)}
+            >
+              <div className="fx-service-thumb">
+                <img className="fx-service-thumb-image" src={card.image} alt={card.title} />
+                <div className="fx-service-thumb-meta">
+                  <div className="fx-service-brand-row">
+                  </div>
+                </div>
+              </div>
+              <div className="fx-service-float-title">
+                <div className="fx-service-float-title-text">{card.title}</div>
+                <p className="fx-service-float-desc">{card.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -297,7 +449,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             </div>
             <div>
               <div className="fx-contact-item-label">Email</div>
-              <div className="fx-contact-item-val">foxtrot_systems@aol.com</div>
+              <div className="fx-contact-item-val">technicalsales@foxtrot-sytems.com</div>
             </div>
             <div>
               <div className="fx-contact-item-label">Business Hours</div>
@@ -310,14 +462,42 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </div>
           <div className="fx-contact-form">
             <div className="fx-form-row">
-              <input className="fx-input" placeholder="Full Name" type="text" />
-              <input className="fx-input" placeholder="Organisation" type="text" />
+              <input
+                className="fx-input"
+                placeholder="Full Name"
+                type="text"
+                value={quoteName}
+                onChange={(e) => setQuoteName(e.target.value)}
+              />
+              <input
+                className="fx-input"
+                placeholder="Organisation"
+                type="text"
+                value={quoteOrg}
+                onChange={(e) => setQuoteOrg(e.target.value)}
+              />
             </div>
             <div className="fx-form-row">
-              <input className="fx-input" placeholder="Phone / WhatsApp" type="tel" />
-              <input className="fx-input" placeholder="Email Address" type="email" />
+              <input
+                className="fx-input"
+                placeholder="Phone / WhatsApp"
+                type="tel"
+                value={quotePhone}
+                onChange={(e) => setQuotePhone(e.target.value)}
+              />
+              <input
+                className="fx-input"
+                placeholder="Email Address"
+                type="email"
+                value={quoteEmail}
+                onChange={(e) => setQuoteEmail(e.target.value)}
+              />
             </div>
-            <select className="fx-select" defaultValue="">
+            <select
+              className="fx-select"
+              value={quoteService}
+              onChange={(e) => setQuoteService(e.target.value)}
+            >
               <option value="" disabled>
                 Select Service Required
               </option>
@@ -328,13 +508,20 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               <option>Smart Farming Technologies</option>
               <option>Multiple Services</option>
             </select>
-            <textarea className="fx-textarea" placeholder="Describe your project or requirements..." />
+            <textarea
+              className="fx-textarea"
+              placeholder="Describe your project or requirements..."
+              value={quoteMessage}
+              onChange={(e) => setQuoteMessage(e.target.value)}
+            />
             <button
               className="fx-btn-primary"
               style={{ width: '100%', padding: 16, fontSize: 13 }}
-              onClick={() => onShowToast('Quote request sent! We will contact you within 24 hours.')}
+              onClick={submitQuoteRequest}
+              disabled={quoteSending}
+              aria-disabled={quoteSending}
             >
-              Submit Quote Request →
+              {quoteSending ? 'Sending…' : 'Submit Quote Request →'}
             </button>
           </div>
         </div>

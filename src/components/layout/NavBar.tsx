@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { Page } from '../../types/page'
+import logo from '../../assets/foxtrot-logo.png'
 
 type Props = {
   onNavigate: (page: Page) => void
@@ -33,8 +34,7 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
   return (
     <nav className={`fx-nav ${isScrolled ? 'scrolled' : ''}`}>
       <div className="fx-logo" onClick={() => handleNavigate('home')} style={{ cursor: 'pointer' }}>
-        <div className="fx-logo-main">FOXTROT</div>
-        <div className="fx-logo-sub">Electrocommunication Systems</div>
+        <img className="fx-logo-img" src={logo} alt="Foxtrot Systems" />
       </div>
       <div className="fx-nav-links">
         <a onClick={() => handleNavigate('home')}>Home</a>

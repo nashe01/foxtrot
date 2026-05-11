@@ -1,0 +1,486 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1B4F72;
+    --blue-dark: #0D2137;
+    --blue-light: #2471A3;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #222222;
+    --white: #FFFFFF;
+    --off-white: #F5F5F0;
+    --gray: #888888;
+    --light-gray: #DDDDDD;
+    --gold: #E8A020;
+  }
+
+  .fx-site { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+  .fx-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.97);
+    border-bottom: 1px solid rgba(27,79,114,0.3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    backdrop-filter: blur(8px);
+  }
+  .fx-logo { display: flex; flex-direction: column; }
+  .fx-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: var(--blue); line-height:1; }
+  .fx-logo-sub { font-size: 9px; letter-spacing: 2px; color: var(--gray); text-transform: uppercase; }
+  .fx-nav-links { display: flex; gap: 32px; }
+  .fx-nav-links a { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--light-gray); text-decoration: none; cursor: pointer; transition: color 0.2s; font-weight: 500; }
+  .fx-nav-links a:hover { color: var(--blue); }
+  .fx-nav-cta { background: var(--blue); color: var(--white); border: none; padding: 10px 22px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: background 0.2s; }
+  .fx-nav-cta:hover { background: var(--blue-light); }
+
+  .fx-page { display: none; }
+  .fx-page.active { display: block; }
+
+  .fx-hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: var(--black); }
+  .fx-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(27,79,114,0.12) 0%, transparent 60%); }
+  .fx-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(27,79,114,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(27,79,114,0.05) 1px, transparent 1px); background-size: 60px 60px; animation: gridPulse 8s ease-in-out infinite; }
+  @keyframes gridPulse { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
+
+  .fx-radar { position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 380px; height: 380px; }
+  .fx-radar-circle { position: absolute; border-radius: 50%; border: 1px solid rgba(27,79,114,0.3); top: 50%; left: 50%; transform: translate(-50%,-50%); animation: radarExpand 4s ease-out infinite; }
+  .fx-radar-circle:nth-child(1) { width: 80px; height: 80px; animation-delay: 0s; }
+  .fx-radar-circle:nth-child(2) { width: 160px; height: 160px; animation-delay: 1s; }
+  .fx-radar-circle:nth-child(3) { width: 240px; height: 240px; animation-delay: 2s; }
+  .fx-radar-circle:nth-child(4) { width: 320px; height: 320px; animation-delay: 3s; }
+  .fx-radar-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 16px; height: 16px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 20px var(--blue); animation: corePulse 2s ease-in-out infinite; }
+  .fx-radar-sweep { position: absolute; top: 50%; left: 50%; width: 160px; height: 2px; transform-origin: left center; background: linear-gradient(90deg, var(--blue), transparent); animation: sweep 3s linear infinite; border-radius: 2px; }
+  @keyframes radarExpand { 0%{opacity:0.6;transform:translate(-50%,-50%) scale(0.8)} 100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)} }
+  @keyframes corePulse { 0%,100%{box-shadow:0 0 20px var(--blue)} 50%{box-shadow:0 0 40px var(--blue),0 0 60px rgba(27,79,114,0.5)} }
+  @keyframes sweep { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  .fx-hero-content { position: relative; z-index: 2; padding: 0 40px 0 60px; max-width: 640px; }
+  .fx-hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.8s ease both; }
+  .fx-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--blue); }
+  .fx-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7vw, 88px); line-height: 0.95; letter-spacing: 2px; margin-bottom: 28px; animation: fadeUp 0.8s ease 0.15s both; }
+  .fx-hero-title span { color: var(--blue); }
+  .fx-hero-sub { font-size: 15px; line-height: 1.7; color: #AAAAAA; max-width: 480px; margin-bottom: 40px; animation: fadeUp 0.8s ease 0.3s both; }
+  .fx-hero-actions { display: flex; gap: 16px; animation: fadeUp 0.8s ease 0.45s both; }
+  .fx-btn-primary { background: var(--blue); color: var(--white); border: none; padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
+  .fx-btn-primary:hover { background: #2471A3; transform: translateY(-1px); }
+  .fx-btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.3); padding: 14px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow', sans-serif; transition: all 0.2s; }
+  .fx-btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+  .fx-hero-stats { position: absolute; bottom: 48px; left: 60px; right: 40%; display: flex; gap: 48px; z-index: 2; animation: fadeUp 0.8s ease 0.6s both; }
+  .fx-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--white); line-height: 1; }
+  .fx-stat-num span { color: var(--blue); }
+  .fx-stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  .fx-ticker { background: var(--gold); padding: 10px 0; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1); }
+  .fx-ticker-track { display: flex; gap: 0; white-space: nowrap; animation: tickerScroll 30s linear infinite; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+  .fx-ticker-item { padding: 0 40px; }
+  .fx-ticker-item::after { content: '◆'; padding-left: 40px; opacity: 0.5; }
+  @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  .fx-section { padding: 100px 60px; }
+  .fx-section-header { margin-bottom: 64px; }
+  .fx-section-label { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .fx-section-label::before { content:''; width:32px; height:1px; background:var(--blue); }
+  .fx-section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: 2px; }
+  .fx-section-title em { color: var(--blue); font-style: normal; }
+
+  .fx-services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; background: var(--dark3); }
+  .fx-service-card { background: var(--dark); padding: 40px 36px; border-bottom: 3px solid transparent; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; }
+  .fx-service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(27,79,114,0.05) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s; }
+  .fx-service-card:hover { border-bottom-color: var(--blue); background: var(--dark2); }
+  .fx-service-card:hover::before { opacity: 1; }
+  .fx-service-icon { width: 48px; height: 48px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; }
+  .fx-service-icon svg { width: 36px; height: 36px; }
+  .fx-service-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: rgba(27,79,114,0.08); position: absolute; top: 16px; right: 24px; line-height: 1; transition: color 0.3s; }
+  .fx-service-card:hover .fx-service-num { color: rgba(27,79,114,0.15); }
+  .fx-service-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; color: var(--white); }
+  .fx-service-desc { font-size: 14px; line-height: 1.7; color: var(--gray); }
+  .fx-service-arrow { margin-top: 24px; font-size: 20px; color: var(--blue); opacity: 0; transform: translateX(-8px); transition: all 0.3s; }
+  .fx-service-card:hover .fx-service-arrow { opacity: 1; transform: translateX(0); }
+
+  .fx-project-section { background: var(--dark); padding: 100px 60px; border-top: 1px solid var(--dark3); }
+  .fx-project-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
+  .fx-project-img { width: 100%; aspect-ratio: 4/3; background: var(--dark3); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .fx-project-map-bg { width: 100%; height: 100%; background: radial-gradient(circle at 40% 45%, rgba(27,79,114,0.2) 0%, transparent 40%), radial-gradient(circle at 70% 65%, rgba(27,79,114,0.1) 0%, transparent 30%), var(--dark2); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 4px; color: rgba(27,79,114,0.4); text-transform: uppercase; position: relative; }
+  .fx-map-dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 20px var(--blue); animation: corePulse 2s ease-in-out infinite; }
+  .fx-map-dot::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(27,79,114,0.4); animation: radarExpand 2s ease-out infinite; }
+  .fx-map-dot.dot1 { top: 45%; left: 38%; }
+  .fx-map-dot.dot2 { top: 62%; left: 55%; animation-delay: 0.5s; }
+  .fx-project-badge { position: absolute; bottom: -20px; right: -20px; background: var(--blue); padding: 20px 24px; font-family: 'Bebas Neue', sans-serif; }
+  .fx-project-badge-num { font-size: 36px; line-height: 1; }
+  .fx-project-badge-label { font-size: 11px; letter-spacing: 2px; opacity: 0.8; }
+  .fx-project-tag { display: inline-block; background: rgba(27,79,114,0.15); color: var(--blue); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; padding: 6px 14px; margin-bottom: 20px; font-weight: 600; }
+  .fx-project-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; line-height: 1.1; margin-bottom: 20px; letter-spacing: 1px; }
+  .fx-project-desc { font-size: 15px; line-height: 1.8; color: #999; margin-bottom: 32px; }
+  .fx-project-results { display: flex; gap: 32px; margin-bottom: 32px; }
+  .fx-result-num { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--blue); }
+  .fx-result-label { font-size: 12px; color: var(--gray); letter-spacing: 1px; }
+  .fx-partner-tag { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; padding-top: 24px; border-top: 1px solid var(--dark3); }
+  .fx-partner-tag strong { color: var(--white); }
+
+  .fx-products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .fx-product-card { background: var(--dark); border: 1px solid var(--dark3); padding: 32px; transition: all 0.3s; cursor: pointer; position: relative; }
+  .fx-product-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+  .fx-product-visual { height: 140px; background: var(--dark3); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .fx-product-visual::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(to top, var(--dark), transparent); }
+  .fx-product-series { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: rgba(27,79,114,0.15); line-height: 1; letter-spacing: 4px; }
+  .fx-product-label { font-size: 10px; letter-spacing: 4px; color: var(--blue); text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+  .fx-product-name { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .fx-product-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+  .fx-product-specs { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--dark3); display: flex; gap: 16px; flex-wrap: wrap; }
+  .fx-spec-pill { background: var(--dark2); font-size: 10px; letter-spacing: 1px; color: var(--gray); padding: 4px 10px; text-transform: uppercase; }
+
+  .fx-team-section { background: var(--dark); padding: 100px 60px; }
+  .fx-team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--dark3); margin-top: 64px; }
+  .fx-team-card { background: var(--dark); padding: 40px 36px; transition: all 0.3s; cursor: pointer; position: relative; overflow: hidden; }
+  .fx-team-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--blue); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .fx-team-card:hover::after { transform: scaleX(1); }
+  .fx-team-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--dark3); border: 2px solid var(--dark3); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--blue); margin-bottom: 24px; transition: border-color 0.3s; }
+  .fx-team-card:hover .fx-team-avatar { border-color: var(--blue); }
+  .fx-team-role { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; font-weight: 600; }
+  .fx-team-name { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 1px; margin-bottom: 14px; text-transform: uppercase; }
+  .fx-team-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+  .fx-why-section { padding: 100px 60px; background: var(--black); }
+  .fx-why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px; }
+  .fx-why-list { display: flex; flex-direction: column; gap: 0; }
+  .fx-why-item { padding: 28px 0; border-bottom: 1px solid var(--dark3); display: flex; gap: 24px; align-items: flex-start; transition: all 0.2s; cursor: default; }
+  .fx-why-item:hover .fx-why-num { color: var(--blue); }
+  .fx-why-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--dark3); line-height: 1; min-width: 48px; transition: color 0.3s; }
+  .fx-why-title { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .fx-why-desc { font-size: 14px; color: var(--gray); line-height: 1.7; }
+  .fx-why-visual { position: sticky; top: 80px; background: var(--dark); padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+  .fx-why-visual-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); letter-spacing: 2px; border-bottom: 1px solid var(--dark3); padding-bottom: 24px; margin-bottom: 8px; }
+  .fx-metric-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--dark3); }
+  .fx-metric-label { font-size: 12px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+  .fx-metric-val { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--blue); line-height: 1; }
+  .fx-metric-bar-wrap { margin-top: 6px; height: 3px; background: var(--dark3); position: relative; overflow: hidden; }
+  .fx-metric-bar { height: 100%; background: var(--blue); animation: barGrow 2s ease both; }
+  @keyframes barGrow { from{width:0} }
+
+  .fx-contact-section { background: var(--dark); padding: 100px 60px; }
+  .fx-contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; margin-top: 64px; }
+  .fx-contact-item-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; font-weight: 600; }
+  .fx-contact-item-val { font-size: 16px; color: var(--white); }
+  .fx-contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .fx-input { background: var(--dark2); border: 1px solid var(--dark3); color: var(--white); padding: 14px 20px; font-size: 14px; font-family: 'Barlow', sans-serif; outline: none; transition: border-color 0.2s; width: 100%; }
+  .fx-input:focus { border-color: var(--blue); }
+  .fx-input::placeholder { color: var(--gray); }
+  .fx-select { background: var(--dark2); border: 1px solid var(--dark3); color: var(--gray); padding: 14px 20px; font-size: 14px; font-family: 'Barlow', sans-serif; outline: none; width: 100%; appearance: none; cursor: pointer; transition: border-color 0.2s; }
+  .fx-select:focus { border-color: var(--blue); }
+  .fx-textarea { background: var(--dark2); border: 1px solid var(--dark3); color: var(--white); padding: 14px 20px; font-size: 14px; font-family: 'Barlow', sans-serif; outline: none; resize: vertical; min-height: 120px; width: 100%; transition: border-color 0.2s; }
+  .fx-textarea:focus { border-color: var(--blue); }
+  .fx-textarea::placeholder { color: var(--gray); }
+  .fx-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .fx-footer { background: #050505; padding: 64px 60px 32px; border-top: 1px solid var(--dark3); }
+  .fx-footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .fx-footer-logo-main { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--blue); letter-spacing: 3px; }
+  .fx-footer-tagline { font-size: 13px; color: var(--gray); margin-top: 8px; line-height: 1.6; max-width: 280px; }
+  .fx-footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); font-weight: 600; margin-bottom: 20px; }
+  .fx-footer-links { display: flex; flex-direction: column; gap: 10px; }
+  .fx-footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .fx-footer-links a:hover { color: var(--blue); }
+  .fx-footer-bottom { padding-top: 32px; border-top: 1px solid var(--dark3); display: flex; justify-content: space-between; align-items: center; }
+  .fx-footer-copy { font-size: 12px; color: var(--gray); }
+  .fx-footer-badge { font-size: 11px; letter-spacing: 2px; color: var(--blue); text-transform: uppercase; font-weight: 600; }
+
+  .fx-whatsapp { position: fixed; bottom: 32px; right: 32px; z-index: 200; width: 56px; height: 56px; border-radius: 50%; background: #25D366; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); animation: waBounce 3s ease-in-out infinite; transition: transform 0.2s; }
+  .fx-whatsapp:hover { transform: scale(1.1); }
+  @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  .fx-whatsapp svg { width: 28px; height: 28px; fill: white; }
+
+  .fx-about-hero { padding: 120px 60px 80px; background: var(--black); position: relative; overflow: hidden; }
+  .fx-about-hero::before { content: 'FOXTROT'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 200px; color: rgba(232,160,32,0.06); letter-spacing: 8px; white-space: nowrap; pointer-events: none; }
+  .fx-about-intro { font-size: 20px; line-height: 1.8; color: #BBBBBB; }
+  .fx-about-intro strong { color: var(--blue); font-weight: 600; }
+
+  .fx-values-section { padding: 80px 60px; background: var(--dark); }
+  .fx-values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; background: var(--dark3); margin-top: 48px; }
+  .fx-value-card { background: var(--dark); padding: 40px 32px; border-top: 3px solid transparent; transition: border-color 0.3s; }
+  .fx-value-card:hover { border-top-color: var(--blue); }
+  .fx-value-title { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; }
+  .fx-value-desc { font-size:14px; color:var(--gray); line-height:1.7; }
+
+  .fx-services-page { padding: 100px 60px; }
+  .fx-service-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 60px 0; border-bottom: 1px solid var(--dark3); align-items: center; }
+  .fx-service-detail:last-child { border-bottom: none; }
+  .fx-service-detail:nth-child(even) .fx-sd-visual { order: -1; }
+  .fx-sd-visual { background: var(--dark); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .fx-sd-bg-text { font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: rgba(27,79,114,0.06); letter-spacing: 4px; text-align: center; }
+  .fx-sd-tag { display:inline-block; background:rgba(27,79,114,0.15); color:var(--blue); font-size:10px; letter-spacing:3px; text-transform:uppercase; padding:6px 14px; margin-bottom:16px; font-weight:600; }
+  .fx-sd-title { font-family:'Bebas Neue',sans-serif; font-size:44px; line-height:1; letter-spacing:2px; margin-bottom:16px; }
+  .fx-sd-desc { font-size:15px; color:#999; line-height:1.8; margin-bottom:24px; }
+  .fx-feature-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .fx-feature-list li { font-size:14px; color:#BBB; display:flex; align-items:center; gap:10px; }
+  .fx-feature-list li::before { content:''; width:20px; height:2px; background:var(--blue); flex-shrink:0; }
+
+  .fx-toast { position: fixed; bottom: 100px; right: 32px; z-index: 300; background: var(--dark); border: 1px solid var(--blue); color: var(--white); padding: 14px 24px; font-size: 14px; font-family: 'Barlow', sans-serif; letter-spacing: 0.5px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events: none; }
+  .fx-toast.show { transform: translateX(0); }
+</style>
+
+<div class="fx-site">
+  <nav class="fx-nav">
+    <div class="fx-logo" onclick="showPage('home')" style="cursor:pointer">
+      <div class="fx-logo-main">FOXTROT</div>
+      <div class="fx-logo-sub">Electrocommunication Systems</div>
+    </div>
+    <div class="fx-nav-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('about')">About</a>
+      <a onclick="showPage('services')">Services</a>
+      <a onclick="showPage('home'); setTimeout(()=>scrollToSection('section-products'),100)">Products</a>
+      <a onclick="showPage('home'); setTimeout(()=>scrollToSection('section-contact'),100)">Contact</a>
+    </div>
+    <button class="fx-nav-cta" onclick="showPage('home'); setTimeout(()=>scrollToSection('section-contact'),100)">Get a Quote</button>
+  </nav>
+
+  <!-- HOME -->
+  <div class="fx-page active" id="page-home">
+    <section class="fx-hero">
+      <div class="fx-hero-bg"></div>
+      <div class="fx-hero-grid"></div>
+      <div class="fx-radar">
+        <div class="fx-radar-circle"></div>
+        <div class="fx-radar-circle"></div>
+        <div class="fx-radar-circle"></div>
+        <div class="fx-radar-circle"></div>
+        <div class="fx-radar-center"></div>
+        <div class="fx-radar-sweep"></div>
+      </div>
+      <div class="fx-hero-content">
+        <div class="fx-hero-eyebrow">Harare, Zimbabwe</div>
+        <h1 class="fx-hero-title">Connecting<br><span>Africa.</span><br>Empowering<br>Communities.</h1>
+        <p class="fx-hero-sub">Zimbabwe's leading integrator of communication, energy, and smart farming technologies — delivering operational excellence in every community we serve.</p>
+        <div class="fx-hero-actions">
+          <button class="fx-btn-primary" onclick="showPage('services')">Explore Services</button>
+          <button class="fx-btn-outline" onclick="showPage('about')">Our Story</button>
+        </div>
+      </div>
+      <div class="fx-hero-stats">
+        <div class="fx-stat-item"><div class="fx-stat-num">10<span>+</span></div><div class="fx-stat-label">Years Experience</div></div>
+        <div class="fx-stat-item"><div class="fx-stat-num">50<span>+</span></div><div class="fx-stat-label">Projects Delivered</div></div>
+        <div class="fx-stat-item"><div class="fx-stat-num">5</div><div class="fx-stat-label">Core Services</div></div>
+      </div>
+    </section>
+
+    <div class="fx-ticker">
+      <div class="fx-ticker-track">
+        <span class="fx-ticker-item">Two-Way Radio Systems</span><span class="fx-ticker-item">Solar & Renewable Energy</span><span class="fx-ticker-item">Energy Backup Solutions</span><span class="fx-ticker-item">Technical Infrastructure</span><span class="fx-ticker-item">Smart Farming Technologies</span><span class="fx-ticker-item">Hytera Authorised Dealer</span><span class="fx-ticker-item">Two-Way Radio Systems</span><span class="fx-ticker-item">Solar & Renewable Energy</span><span class="fx-ticker-item">Energy Backup Solutions</span><span class="fx-ticker-item">Technical Infrastructure</span><span class="fx-ticker-item">Smart Farming Technologies</span><span class="fx-ticker-item">Hytera Authorised Dealer</span>
+      </div>
+    </div>
+
+    <section class="fx-section" id="section-services">
+      <div class="fx-section-header">
+        <div class="fx-section-label">What We Do</div>
+        <h2 class="fx-section-title">Core <em>Services</em></h2>
+      </div>
+      <div class="fx-services-grid">
+        <div class="fx-service-card" onclick="showPage('services')">
+          <div class="fx-service-num">01</div>
+          <div class="fx-service-icon"><svg viewBox="0 0 36 36" fill="none"><path d="M18 4L18 20" stroke="#E8A020" stroke-width="2" stroke-linecap="round"/><circle cx="18" cy="24" r="4" stroke="#E8A020" stroke-width="2"/><path d="M8 10 Q4 18 8 26" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/><path d="M28 10 Q32 18 28 26" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/><path d="M5 7 Q-1 18 5 29" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/><path d="M31 7 Q37 18 31 29" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/></svg></div>
+          <div class="fx-service-title">Two-Way Radio Systems</div>
+          <div class="fx-service-desc">VHF, HF and POC radio supply, installation & maintenance. Expert digital migration and repeater installations.</div>
+          <div class="fx-service-arrow">→</div>
+        </div>
+        <div class="fx-service-card" onclick="showPage('services')">
+          <div class="fx-service-num">02</div>
+          <div class="fx-service-icon"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="12" r="6" stroke="#E8A020" stroke-width="2"/><path d="M18 6L18 2" stroke="#E8A020" stroke-width="2" stroke-linecap="round"/><path d="M23.2 8.8L26 6" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round"/><path d="M24 14L28 14" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round"/><rect x="6" y="20" width="24" height="12" rx="1" stroke="#E8A020" stroke-width="2"/><line x1="10" y1="20" x2="10" y2="32" stroke="#E8A020" stroke-width="1" opacity="0.4"/><line x1="14" y1="20" x2="14" y2="32" stroke="#E8A020" stroke-width="1" opacity="0.4"/><line x1="18" y1="12" x2="18" y2="20" stroke="#E8A020" stroke-width="2" stroke-dasharray="2,2"/></svg></div>
+          <div class="fx-service-title">Solar & Renewable Energy</div>
+          <div class="fx-service-desc">On-grid and off-grid solar design and installation. Customized energy solutions for domestic, commercial & conservation.</div>
+          <div class="fx-service-arrow">→</div>
+        </div>
+        <div class="fx-service-card" onclick="showPage('services')">
+          <div class="fx-service-num">03</div>
+          <div class="fx-service-icon"><svg viewBox="0 0 36 36" fill="none"><rect x="4" y="8" width="28" height="20" rx="2" stroke="#E8A020" stroke-width="2"/><path d="M14 16L16 20L20 14" stroke="#E8A020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="14" x2="32" y2="14" stroke="#E8A020" stroke-width="1" opacity="0.3"/></svg></div>
+          <div class="fx-service-title">Energy Backup Solutions</div>
+          <div class="fx-service-desc">Reliable backup systems protecting critical operations against power interruptions 24/7.</div>
+          <div class="fx-service-arrow">→</div>
+        </div>
+        <div class="fx-service-card" onclick="showPage('services')">
+          <div class="fx-service-num">04</div>
+          <div class="fx-service-icon"><svg viewBox="0 0 36 36" fill="none"><line x1="18" y1="2" x2="18" y2="10" stroke="#E8A020" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="10" x2="10" y2="20" stroke="#E8A020" stroke-width="2" stroke-linecap="round"/><line x1="18" y1="10" x2="26" y2="20" stroke="#E8A020" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="20" x2="6" y2="34" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round"/><line x1="26" y1="20" x2="30" y2="34" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round"/><line x1="6" y1="26" x2="30" y2="26" stroke="#E8A020" stroke-width="1.5" opacity="0.5"/></svg></div>
+          <div class="fx-service-title">Technical Infrastructure</div>
+          <div class="fx-service-desc">Rigging, mast construction, outdoor & indoor cabinet design. Comprehensive system servicing and upgrades.</div>
+          <div class="fx-service-arrow">→</div>
+        </div>
+        <div class="fx-service-card" onclick="showPage('services')">
+          <div class="fx-service-num">05</div>
+          <div class="fx-service-icon"><svg viewBox="0 0 36 36" fill="none"><path d="M6 28 Q8 20 12 18 Q16 16 18 20 Q20 24 24 22 Q28 20 30 14" stroke="#E8A020" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="18" cy="12" r="4" stroke="#E8A020" stroke-width="1.5"/><path d="M18 8 Q18 4 22 4" stroke="#E8A020" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="fx-service-title">Smart Farming Technologies</div>
+          <div class="fx-service-desc">Innovative agricultural tech and sustainable energy solutions supporting modern farming operations across Zimbabwe.</div>
+          <div class="fx-service-arrow">→</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fx-project-section">
+      <div class="fx-section-label">Featured Project</div>
+      <h2 class="fx-section-title" style="margin-top:16px">Key <em>Achievements</em></h2>
+      <div class="fx-project-layout">
+        <div style="position:relative">
+          <div class="fx-project-img">
+            <div class="fx-project-map-bg">
+              <div class="fx-map-dot dot1"></div>
+              <div class="fx-map-dot dot2"></div>
+              <span style="position:relative;z-index:1;opacity:0.3">Zimbabwe · Conservation Zones</span>
+            </div>
+          </div>
+          <div class="fx-project-badge"><div class="fx-project-badge-num">2024</div><div class="fx-project-badge-label">Completed</div></div>
+        </div>
+        <div>
+          <div class="fx-project-tag">Zimparks × Aware Germany</div>
+          <h3 class="fx-project-title">Kyle Recreational Park & Chipangayi Safari Area</h3>
+          <p class="fx-project-desc">Delivered advanced radio communication and solar power solutions across Zimbabwe's premier conservation areas, supporting anti-poaching operations and wildlife management.</p>
+          <div class="fx-project-results">
+            <div><div class="fx-result-num">100%</div><div class="fx-result-label">Solar Powered</div></div>
+            <div><div class="fx-result-num">DMR</div><div class="fx-result-label">Digital Radio</div></div>
+            <div><div class="fx-result-num">24/7</div><div class="fx-result-label">Coverage</div></div>
+          </div>
+          <div class="fx-partner-tag">Partners: <strong>Aware Germany</strong> · <strong>Zimbabwe Parks & Wildlife Authority</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fx-section" id="section-products">
+      <div class="fx-section-header">
+        <div class="fx-section-label">Hytera Partner</div>
+        <h2 class="fx-section-title">Product <em>Range</em></h2>
+      </div>
+      <div class="fx-products-grid">
+        <div class="fx-product-card"><div class="fx-product-visual"><div class="fx-product-series">HP6</div></div><div class="fx-product-label">Portable DMR</div><div class="fx-product-name">Hytera HP6 Series</div><div class="fx-product-desc">New generation digital radio — clear, consistent and effective communications for professional use.</div><div class="fx-product-specs"><span class="fx-spec-pill">DMR</span><span class="fx-spec-pill">Digital</span><span class="fx-spec-pill">IP68</span></div></div>
+        <div class="fx-product-card"><div class="fx-product-visual"><div class="fx-product-series">PT590</div></div><div class="fx-product-label">TETRA Radio</div><div class="fx-product-name">PT590 TETRA</div><div class="fx-product-desc">Universal Type-C port. Speed meets simplicity. Built for mission-critical operations and first responders.</div><div class="fx-product-specs"><span class="fx-spec-pill">TETRA</span><span class="fx-spec-pill">Type-C</span><span class="fx-spec-pill">Mission Critical</span></div></div>
+        <div class="fx-product-card"><div class="fx-product-visual"><div class="fx-product-series">HM6</div></div><div class="fx-product-label">Mobile DMR</div><div class="fx-product-name">HM6 Series</div><div class="fx-product-desc">Digital mobile radio designed for vehicle-mounted installations — reliable in-field communications.</div><div class="fx-product-specs"><span class="fx-spec-pill">DMR</span><span class="fx-spec-pill">Mobile</span><span class="fx-spec-pill">Vehicle Mount</span></div></div>
+      </div>
+    </section>
+
+    <section class="fx-why-section">
+      <div class="fx-section-header">
+        <div class="fx-section-label">Why Foxtrot</div>
+        <h2 class="fx-section-title">Built on <em>Trust</em></h2>
+      </div>
+      <div class="fx-why-layout">
+        <div class="fx-why-list">
+          <div class="fx-why-item"><div class="fx-why-num">01</div><div><div class="fx-why-title">Deep Technical Expertise</div><div class="fx-why-desc">10 years of hands-on experience in national parks, remote installations, and challenging environments across Zimbabwe.</div></div></div>
+          <div class="fx-why-item"><div class="fx-why-num">02</div><div><div class="fx-why-title">Proven Quality Commitment</div><div class="fx-why-desc">Every project delivered with rigorous standards — from initial survey through installation to long-term maintenance.</div></div></div>
+          <div class="fx-why-item"><div class="fx-why-num">03</div><div><div class="fx-why-title">Integrated Solutions</div><div class="fx-why-desc">Unique capability to combine communication, energy, and smart farming technologies into one seamless system.</div></div></div>
+          <div class="fx-why-item"><div class="fx-why-num">04</div><div><div class="fx-why-title">Community-Centred Approach</div><div class="fx-why-desc">Every solution is designed to empower the communities it serves — from urban Harare to remote conservation zones.</div></div></div>
+        </div>
+        <div class="fx-why-visual">
+          <div class="fx-why-visual-title">Performance Metrics</div>
+          <div class="fx-metric-row"><div><div class="fx-metric-label">Client Satisfaction</div><div class="fx-metric-bar-wrap" style="width:200px;margin-top:6px"><div class="fx-metric-bar" style="width:98%"></div></div></div><div class="fx-metric-val">98%</div></div>
+          <div class="fx-metric-row"><div><div class="fx-metric-label">On-Time Delivery</div><div class="fx-metric-bar-wrap" style="width:200px;margin-top:6px"><div class="fx-metric-bar" style="width:94%"></div></div></div><div class="fx-metric-val">94%</div></div>
+          <div class="fx-metric-row"><div><div class="fx-metric-label">System Uptime</div><div class="fx-metric-bar-wrap" style="width:200px;margin-top:6px"><div class="fx-metric-bar" style="width:99%"></div></div></div><div class="fx-metric-val">99%</div></div>
+          <div class="fx-metric-row" style="border-bottom:none"><div><div class="fx-metric-label">National Park Coverage</div><div class="fx-metric-bar-wrap" style="width:200px;margin-top:6px"><div class="fx-metric-bar" style="width:75%"></div></div></div><div class="fx-metric-val">75%</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="fx-contact-section" id="section-contact">
+      <div class="fx-section-label">Get In Touch</div>
+      <h2 class="fx-section-title" style="margin-top:16px;margin-bottom:0">Request a <em>Quote</em></h2>
+      <div class="fx-contact-layout">
+        <div style="display:flex;flex-direction:column;gap:32px">
+          <p style="font-size:16px;color:#999;line-height:1.8">Ready to connect your operations? Our team delivers customized solutions tailored to your environment and budget.</p>
+          <div><div class="fx-contact-item-label">Location</div><div class="fx-contact-item-val">Harare, Zimbabwe</div></div>
+          <div><div class="fx-contact-item-label">Phone</div><div class="fx-contact-item-val">+263 774 116 149</div></div>
+          <div><div class="fx-contact-item-label">Email</div><div class="fx-contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5d3dacdc1c7dac1eac6ccc6c1d0d8c6f5d4dad99bd6dad8">[email&#160;protected]</a></div></div>
+          <div><div class="fx-contact-item-label">Business Hours</div><div class="fx-contact-item-val" style="font-size:14px;color:#999">Mon – Fri: 8:00 AM – 5:00 PM<br>Sat: 8:00 AM – 1:00 PM</div></div>
+        </div>
+        <div class="fx-contact-form">
+          <div class="fx-form-row"><input class="fx-input" placeholder="Full Name" type="text"/><input class="fx-input" placeholder="Organisation" type="text"/></div>
+          <div class="fx-form-row"><input class="fx-input" placeholder="Phone / WhatsApp" type="tel"/><input class="fx-input" placeholder="Email Address" type="email"/></div>
+          <select class="fx-select"><option value="" disabled selected>Select Service Required</option><option>Two-Way Radio Systems</option><option>Solar & Renewable Energy</option><option>Energy Backup Solutions</option><option>Technical Infrastructure</option><option>Smart Farming Technologies</option><option>Multiple Services</option></select>
+          <textarea class="fx-textarea" placeholder="Describe your project or requirements..."></textarea>
+          <button class="fx-btn-primary" style="width:100%;padding:16px;font-size:13px" onclick="showToast('Quote request sent! We will contact you within 24 hours.')">Submit Quote Request →</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="fx-page" id="page-about">
+    <div class="fx-about-hero">
+      <div style="max-width:700px;position:relative;z-index:2">
+        <div class="fx-section-label">Our Story</div>
+        <h1 class="fx-section-title" style="margin:16px 0 32px">About <em>Foxtrot</em></h1>
+        <p class="fx-about-intro">Foxtrot Electrocommunication Systems is Zimbabwe's leading integrator of <strong>communication, energy, and smart farming technologies</strong>. Built on a decade of hands-on experience, we connect communities, power conservation, and drive sustainable growth across Africa.</p>
+      </div>
+    </div>
+    <div style="background:var(--dark);padding:80px 60px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
+        <div><div class="fx-section-label">Vision</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;margin:16px 0 20px;line-height:1.1">To become the most trusted integrator in Zimbabwe and beyond</h3><p style="font-size:15px;color:#999;line-height:1.8">Empowering sustainable growth and operational excellence in every community we serve.</p></div>
+        <div><div class="fx-section-label">Mission</div><h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;margin:16px 0 20px;line-height:1.1">Connecting Africa through reliable technology</h3><p style="font-size:15px;color:#999;line-height:1.8">We deliver integrated solutions combining radio communications, renewable energy, and agricultural technology — engineered for Africa.</p></div>
+      </div>
+    </div>
+    <section class="fx-values-section">
+      <div class="fx-section-label">Our Values</div>
+      <h2 class="fx-section-title" style="margin-top:16px">What <em>Drives</em> Us</h2>
+      <div class="fx-values-grid">
+        <div class="fx-value-card"><div class="fx-value-title">Technical Excellence</div><div class="fx-value-desc">Every installation meets the highest professional standards — especially in remote and critical environments.</div></div>
+        <div class="fx-value-card"><div class="fx-value-title">Community Empowerment</div><div class="fx-value-desc">Technology should uplift communities. We design solutions that create lasting value for all we serve.</div></div>
+        <div class="fx-value-card"><div class="fx-value-title">Sustainability</div><div class="fx-value-desc">From solar power to smart agriculture, sustainability is at the core of every solution we engineer.</div></div>
+        <div class="fx-value-card"><div class="fx-value-title">Reliability</div><div class="fx-value-desc">In conservation zones and remote sites, failure is not an option. Our systems are built for resilience.</div></div>
+        <div class="fx-value-card"><div class="fx-value-title">Innovation</div><div class="fx-value-desc">We continuously adopt emerging technologies to keep our clients at the forefront of their industries.</div></div>
+        <div class="fx-value-card"><div class="fx-value-title">Partnership</div><div class="fx-value-desc">We build long-term relationships with clients, suppliers, and international partners.</div></div>
+      </div>
+    </section>
+    <section class="fx-team-section">
+      <div class="fx-section-label">The Team</div>
+      <h2 class="fx-section-title" style="margin-top:16px">Meet the <em>Experts</em></h2>
+      <div class="fx-team-grid">
+        <div class="fx-team-card"><div class="fx-team-avatar">SG</div><div class="fx-team-role">Founder & Managing Director</div><div class="fx-team-name">Simbarashe Guri</div><div class="fx-team-desc">Visionary leader and founder of Foxtrot Electrocommunication Systems. Drives the company's strategic direction, client relationships, and expansion across Africa.</div></div>
+        <div class="fx-team-card"><div class="fx-team-avatar">CZ</div><div class="fx-team-role">Chief Infrastructure Engineer</div><div class="fx-team-name">Calvin Zharare</div><div class="fx-team-desc">Specialist in mast construction, rigging, and outdoor infrastructure design. Leads all physical installation projects in challenging environments.</div></div>
+        <div class="fx-team-card"><div class="fx-team-avatar">CH</div><div class="fx-team-role">Chief Renewable Energy Engineer</div><div class="fx-team-name">Collin Hareki</div><div class="fx-team-desc">Expert in renewable energy system design, installation, and maintenance. Spearheads all solar and hybrid energy projects from off-grid sites to commercial deployments.</div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="fx-page" id="page-services">
+    <div style="padding:100px 60px 60px;background:var(--black)">
+      <div class="fx-section-label">What We Deliver</div>
+      <h1 class="fx-section-title" style="margin-top:16px">Our <em>Services</em></h1>
+      <p style="font-size:16px;color:#999;max-width:600px;margin-top:24px;line-height:1.8">From professional radio communications to solar energy and smart agriculture — end-to-end integrated solutions across Zimbabwe.</p>
+    </div>
+    <div class="fx-services-page">
+      <div class="fx-service-detail"><div><div class="fx-sd-tag">Service 01</div><h2 class="fx-sd-title">Two-Way Radio Systems</h2><p class="fx-sd-desc">Professional radio communications infrastructure for industries that can't afford to lose contact.</p><ul class="fx-feature-list"><li>VHF, HF and POC radio supply & installation</li><li>Digital migration from analogue to DMR/TETRA</li><li>Repeater station installation and upgrades</li><li>System integration and programming</li><li>Ongoing maintenance contracts</li></ul></div><div class="fx-sd-visual"><div class="fx-sd-bg-text">RADIO<br>COMMS</div></div></div>
+      <div class="fx-service-detail"><div><div class="fx-sd-tag">Service 02</div><h2 class="fx-sd-title">Solar & Renewable Energy</h2><p class="fx-sd-desc">Harness Zimbabwe's abundant sunshine with professionally designed solar systems for any scale.</p><ul class="fx-feature-list"><li>On-grid and off-grid solar design</li><li>Hybrid energy system installation</li><li>Conservation project solar solutions</li><li>Commercial solar for businesses</li><li>Domestic rooftop solar systems</li></ul></div><div class="fx-sd-visual"><div class="fx-sd-bg-text">SOLAR<br>ENERGY</div></div></div>
+      <div class="fx-service-detail"><div><div class="fx-sd-tag">Service 03</div><h2 class="fx-sd-title">Energy Backup Solutions</h2><p class="fx-sd-desc">Protect your operations from power interruptions with intelligent backup systems for critical infrastructure.</p><ul class="fx-feature-list"><li>UPS and battery backup systems</li><li>Generator integration solutions</li><li>Critical infrastructure protection</li><li>24/7 power monitoring</li></ul></div><div class="fx-sd-visual"><div class="fx-sd-bg-text">POWER<br>BACKUP</div></div></div>
+      <div class="fx-service-detail"><div><div class="fx-sd-tag">Service 04</div><h2 class="fx-sd-title">Technical Maintenance & Infrastructure</h2><p class="fx-sd-desc">Physical infrastructure and ongoing technical support keeping your systems at peak capacity.</p><ul class="fx-feature-list"><li>Mast construction and rigging</li><li>Outdoor and indoor cabinet design</li><li>System servicing and upgrades</li><li>Preventative maintenance contracts</li><li>Emergency fault response</li></ul></div><div class="fx-sd-visual"><div class="fx-sd-bg-text">INFRA<br>STRUCTURE</div></div></div>
+      <div class="fx-service-detail"><div><div class="fx-sd-tag">Service 05</div><h2 class="fx-sd-title">Smart Farming Technologies</h2><p class="fx-sd-desc">Bring Zimbabwe's agricultural sector into the modern era with innovative technology solutions.</p><ul class="fx-feature-list"><li>Precision agriculture technology</li><li>Solar-powered irrigation systems</li><li>Remote monitoring systems</li><li>Agri-communication networks</li></ul></div><div class="fx-sd-visual"><div class="fx-sd-bg-text">SMART<br>FARMING</div></div></div>
+    </div>
+    <div style="padding:0 60px 80px;text-align:center"><button class="fx-btn-primary" style="padding:16px 48px;font-size:13px" onclick="showPage('home');setTimeout(()=>scrollToSection('section-contact'),100)">Request a Quote for Any Service →</button></div>
+  </div>
+
+  <footer class="fx-footer">
+    <div class="fx-footer-top">
+      <div><div class="fx-footer-logo-main">FOXTROT</div><div style="font-size:11px;letter-spacing:3px;color:var(--gray);text-transform:uppercase;margin-top:4px">Electrocommunication Systems</div><p class="fx-footer-tagline" style="margin-top:20px">"Connecting Africa, Empowering Communities" — Harare, Zimbabwe's leading integrator of communication, energy & smart farming technologies.</p></div>
+      <div><div class="fx-footer-col-title">Services</div><div class="fx-footer-links"><a onclick="showPage('services')">Two-Way Radio</a><a onclick="showPage('services')">Solar Energy</a><a onclick="showPage('services')">Energy Backup</a><a onclick="showPage('services')">Infrastructure</a><a onclick="showPage('services')">Smart Farming</a></div></div>
+      <div><div class="fx-footer-col-title">Company</div><div class="fx-footer-links"><a onclick="showPage('about')">About Us</a><a onclick="showPage('about')">Our Team</a><a onclick="showPage('about')">Our Values</a><a onclick="showPage('home');setTimeout(()=>scrollToSection('section-products'),100)">Products</a></div></div>
+      <div><div class="fx-footer-col-title">Contact</div><div class="fx-footer-links" style="gap:14px"><span style="font-size:13px;color:#999">Harare, Zimbabwe</span><span style="font-size:13px;color:#999">+263 774 116 149</span><span style="font-size:13px;color:#999"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="53353c2b27213c270c202a2027363e2013323c3f7d303c3e">[email&#160;protected]</a></span><a onclick="showPage('home');setTimeout(()=>scrollToSection('section-contact'),100)" style="color:var(--blue);font-weight:600;cursor:pointer">Get a Quote →</a></div></div>
+    </div>
+    <div class="fx-footer-bottom">
+      <div class="fx-footer-copy">© 2025 Foxtrot Electrocommunication Systems. All rights reserved. Harare, Zimbabwe.</div>
+      <div class="fx-footer-badge">Connecting Africa ◆</div>
+    </div>
+  </footer>
+</div>
+
+<button class="fx-whatsapp" onclick="showToast('Opening WhatsApp — +263 774 116 149')" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
+
+<div class="fx-toast" id="fx-toast"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function showPage(page) {
+  document.querySelectorAll('.fx-page').forEach(p => p.classList.remove('active'));
+  const t = document.getElementById('page-' + page);
+  if (t) t.classList.add('active');
+  window.scrollTo({t
