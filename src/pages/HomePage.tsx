@@ -107,13 +107,9 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     [],
   )
 
-  useEffect(() => {
-    const slideIntervalId = window.setInterval(() => {
-      setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
-    }, 7000)
-
-    return () => window.clearInterval(slideIntervalId)
-  }, [heroSlides.length])
+  const goToSlide = (idx: number) => setActiveHeroSlide(idx)
+  const prevSlide = () => setActiveHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  const nextSlide = () => setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
 
   useEffect(() => {
     setShowHeroText(false)
@@ -237,11 +233,25 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               {heroSlideContent[activeHeroSlide].description}
             </p>
             <div className="fx-hero-actions">
-              
+
             </div>
           </div>
         )}
-        
+
+        <div className="fx-hero-nav">
+          <button className="fx-hero-nav-arrow" onClick={prevSlide} aria-label="Previous slide">&#8592;</button>
+          <div className="fx-hero-dots">
+            {heroSlides.map((_, idx) => (
+              <button
+                key={idx}
+                className={`fx-hero-dot ${idx === activeHeroSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+          <button className="fx-hero-nav-arrow" onClick={nextSlide} aria-label="Next slide">&#8594;</button>
+        </div>
       </section>
 
       <div className="fx-ticker">
