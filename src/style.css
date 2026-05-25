@@ -135,7 +135,12 @@ body {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: transparent;
+  background: linear-gradient(
+    to right,
+    rgba(232, 234, 237, 0.82) 0%,
+    rgba(232, 234, 237, 0.55) 55%,
+    rgba(232, 234, 237, 0.15) 100%
+  );
 }
 .fx-hero-grid { position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(232,101,10,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(232,101,10,0.06) 1px, transparent 1px); background-size: 60px 60px; animation: gridPulse 8s ease-in-out infinite; pointer-events: none; }
 @keyframes gridPulse { 0%,100%{opacity:0.1} 50%{opacity:0.18} }
@@ -676,11 +681,6 @@ body {
     min-height: 82vh;
     align-items: center;
   }
-  .fx-hero-bg {
-    background-size: cover, cover, cover;
-    background-position: center, center, center;
-    background-repeat: no-repeat, no-repeat, no-repeat;
-  }
   .fx-hero-content {
     padding: 18px 24px;
     max-width: 500px;
@@ -799,11 +799,6 @@ body {
   .fx-hero {
     min-height: 78vh;
     align-items: center;
-  }
-  .fx-hero-bg {
-    background-size: cover, cover, cover;
-    background-position: center, center, center;
-    background-repeat: no-repeat, no-repeat, no-repeat;
   }
   .fx-hero-content {
     padding: 16px 14px;
