@@ -1,4 +1,14 @@
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
+import imgRadio from '../assets/services/7.jpeg'
+import imgSolar from '../assets/services/2.jpeg'
+import imgBackup from '../assets/services/1.jpeg'
+import imgInfra from '../assets/services/6.jpg'
+import imgFarming from '../assets/services/3.jpeg'
+import imgRadio2 from '../../foxtrot/services2/1.jpeg'
+import imgSolar2 from '../../foxtrot/services2/2.jpg'
+import imgBackup2 from '../../foxtrot/services2/3.jpeg'
+import imgInfra2 from '../../foxtrot/services2/4.jpeg'
+import imgFarming2 from '../../foxtrot/services2/5.jpeg'
 
 type Props = {
   active: boolean
@@ -45,21 +55,16 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           </div>
           <div className="fx-sd-visual">
             <div className="fx-sd-layout">
-              <div className="fx-sd-left">
-                <div className="fx-sd-bg-text">
-                  RADIO
-                  <br />
-                  COMMS
-                </div>
+              <div className="fx-sd-left" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgRadio} alt="Two-Way Radio" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div className="fx-sd-top-right">
                 <div className="fx-sd-card-label">Coverage</div>
                 <div className="fx-sd-card-value">24/7</div>
               </div>
-              <div className="fx-sd-bottom-right">
-                <div className="fx-sd-mini-label">Field Ready</div>
+              <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgRadio2} alt="Two-Way Radio" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -81,21 +86,16 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           </div>
           <div className="fx-sd-visual">
             <div className="fx-sd-layout">
-              <div className="fx-sd-left">
-                <div className="fx-sd-bg-text">
-                  SOLAR
-                  <br />
-                  ENERGY
-                </div>
+              <div className="fx-sd-left" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgSolar} alt="Solar Energy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div className="fx-sd-top-right">
                 <div className="fx-sd-card-label">Systems</div>
                 <div className="fx-sd-card-value">Hybrid</div>
               </div>
-              <div className="fx-sd-bottom-right">
-                <div className="fx-sd-mini-label">High Efficiency</div>
+              <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgSolar2} alt="Solar Installation" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -116,21 +116,16 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           </div>
           <div className="fx-sd-visual">
             <div className="fx-sd-layout">
-              <div className="fx-sd-left">
-                <div className="fx-sd-bg-text">
-                  POWER
-                  <br />
-                  BACKUP
-                </div>
+              <div className="fx-sd-left" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgBackup} alt="Energy Backup" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div className="fx-sd-top-right">
                 <div className="fx-sd-card-label">Uptime</div>
                 <div className="fx-sd-card-value">99%</div>
               </div>
-              <div className="fx-sd-bottom-right">
-                <div className="fx-sd-mini-label">Critical Load</div>
+              <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgBackup2} alt="Energy Backup" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -152,21 +147,16 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           </div>
           <div className="fx-sd-visual">
             <div className="fx-sd-layout">
-              <div className="fx-sd-left">
-                <div className="fx-sd-bg-text">
-                  INFRA
-                  <br />
-                  STRUCTURE
-                </div>
+              <div className="fx-sd-left" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgInfra} alt="Infrastructure" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div className="fx-sd-top-right">
                 <div className="fx-sd-card-label">Support</div>
                 <div className="fx-sd-card-value">On Site</div>
               </div>
-              <div className="fx-sd-bottom-right">
-                <div className="fx-sd-mini-label">Engineered Build</div>
+              <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgInfra2} alt="Infrastructure Work" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>
@@ -187,21 +177,16 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
           </div>
           <div className="fx-sd-visual">
             <div className="fx-sd-layout">
-              <div className="fx-sd-left">
-                <div className="fx-sd-bg-text">
-                  SMART
-                  <br />
-                  FARMING
-                </div>
+              <div className="fx-sd-left" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgFarming} alt="Smart Farming" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
               <div className="fx-sd-top-right">
                 <div className="fx-sd-card-label">Monitoring</div>
                 <div className="fx-sd-card-value">Remote</div>
               </div>
-              <div className="fx-sd-bottom-right">
-                <div className="fx-sd-mini-label">Agri Tech</div>
+              <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
+                <img src={imgFarming2} alt="Smart Farming" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              <div className="fx-sd-dots" />
             </div>
           </div>
         </div>

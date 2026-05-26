@@ -120,33 +120,13 @@ export function AboutPage({ active }: Props) {
         <h2 className="fx-section-title" style={{ marginTop: 16 }}>
           Meet the <em>Experts</em>
         </h2>
-        <div className="fx-team-grid">
-          <div className="fx-team-card">
-            <div className="fx-team-avatar">SG</div>
-            <div className="fx-team-role">Founder &amp; Managing Director</div>
-            <div className="fx-team-name">Simbarashe Guri</div>
-            <div className="fx-team-desc">
-              Visionary leader and founder of Foxtrot Electrocommunication Systems. Drives the
-              company&apos;s strategic direction, client relationships, and expansion across Africa.
-            </div>
-          </div>
-          <div className="fx-team-card">
-            <div className="fx-team-avatar">CZ</div>
-            <div className="fx-team-role">Chief Infrastructure Engineer</div>
-            <div className="fx-team-name">Calvin Zharare</div>
-            <div className="fx-team-desc">
-              Specialist in mast construction, rigging, and outdoor infrastructure design. Leads all
-              physical installation projects in challenging environments.
-            </div>
-          </div>
-          <div className="fx-team-card">
-            <div className="fx-team-avatar">CH</div>
-            <div className="fx-team-role">Chief Renewable Energy Engineer</div>
-            <div className="fx-team-name">Collin Hareki</div>
-            <div className="fx-team-desc">
-              Expert in renewable energy system design, installation, and maintenance. Spearheads all
-              solar and hybrid energy projects from off-grid sites to commercial deployments.
-            </div>
+        <div className="fx-team-card" style={{ marginTop: 40, maxWidth: 400 }}>
+          <div className="fx-team-avatar">SG</div>
+          <div className="fx-team-role">Founder &amp; Managing Director</div>
+          <div className="fx-team-name">Simbarashe Guri</div>
+          <div className="fx-team-desc">
+            Visionary leader and founder of Foxtrot Electrocommunication Systems. Drives the
+            company&apos;s strategic direction, client relationships, and expansion across Africa.
           </div>
         </div>
       </section>

@@ -123,6 +123,48 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     }
   }, [activeHeroSlide, loadedHeroSlides])
 
+  useEffect(() => {
+    if (!active) return
+
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset
+      const heroSection = document.getElementById('fx-hero-section')
+      const mainContent = document.getElementById('fx-main-content')
+
+      if (heroSection && mainContent) {
+        const heroHeight = heroSection.offsetHeight
+        const maxScroll = heroHeight * 0.6
+
+        const curtainOffset = Math.min(scrolled * 0.8, maxScroll)
+        mainContent.style.transform = `translateY(-${curtainOffset}px)`
+        heroSection.style.transform = `translateY(-${scrolled * 0.2}px)`
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [active])
+
+  useEffect(() => {
+    if (!active) return
+
+    const cards = document.querySelectorAll('.fx-service-product-card')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fx-card-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.25 },
+    )
+
+    cards.forEach((card) => observer.observe(card))
+    return () => observer.disconnect()
+  }, [active])
+
   const markHeroSlideAsLoaded = (slideIndex: number) => {
     setLoadedHeroSlides((prev) => {
       if (prev[slideIndex]) {
@@ -187,7 +229,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
 
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-home">
-      <section className="fx-hero">
+      <section className="fx-hero" id="fx-hero-section">
         <div className="fx-hero-media" aria-hidden="true">
           {heroSlides.map((slideSrc, idx) => (
             <img
@@ -254,7 +296,8 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
         </div>
       </section>
 
-      <div className="fx-ticker">
+      <div id="fx-main-content" style={{ position: 'relative', zIndex: 10, background: 'var(--page-bg)', marginTop: '-5vh' }}>
+      <div className="fx-ticker" style={{ marginTop: 0 }}>
         <div className="fx-ticker-track">
           {Array.from({ length: 2 }).flatMap((_, loopIdx) =>
             tickerItems.map((t, idx) => (
@@ -282,22 +325,25 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               powered, and future‑ready.
             </p>
           </div>
-          {serviceCards.map((card) => (
+          {serviceCards.map((card, idx) => (
             <article
               className="fx-service-product-card"
               key={card.sectionId}
               onClick={() => onNavigateToServiceSection(card.sectionId)}
+              style={{ animationDelay: `${idx * 0.3}s` }}
             >
               <div className="fx-service-thumb">
                 <img className="fx-service-thumb-image" src={card.image} alt={card.title} />
-                <div className="fx-service-thumb-meta">
-                  <div className="fx-service-brand-row">
-                  </div>
-                </div>
               </div>
-              <div className="fx-service-float-title">
-                <div className="fx-service-float-title-text">{card.title}</div>
-                <p className="fx-service-float-desc">{card.description}</p>
+              <div className="fx-service-overlay" />
+              <div className="fx-service-overlay-content">
+                <h3 className="fx-service-overlay-title">{card.title}</h3>
+                <p className="fx-service-overlay-desc">{card.description}</p>
+                <span className="fx-service-overlay-action">View Service →</span>
+              </div>
+              <div className="fx-service-default-text">
+                <h3 className="fx-service-default-title">{card.title}</h3>
+                <p className="fx-service-default-desc">{card.description}</p>
               </div>
             </article>
           ))}
@@ -536,6 +582,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           </div>
         </div>
       </section>
+      </div>
     </div>
   )
 }
