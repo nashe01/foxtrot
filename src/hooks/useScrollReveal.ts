@@ -5,6 +5,8 @@ export function useScrollReveal(active: boolean, selector = '.fx-reveal') {
     if (!active) return
 
     const elements = document.querySelectorAll(selector)
+    elements.forEach((el) => el.classList.remove('fx-visible'))
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
