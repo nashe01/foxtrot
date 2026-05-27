@@ -1,15 +1,18 @@
 import logo from '../assets/foxtrot-logo.png'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 type Props = {
   active: boolean
 }
 
 export function AboutPage({ active }: Props) {
+  useScrollReveal(active)
+
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-about">
       <div className="fx-about-hero">
         <div className="fx-about-story-layout">
-          <div className="fx-about-story-copy">
+          <div className="fx-about-story-copy fx-reveal">
             <div className="fx-section-label">Our Story</div>
             <h1 className="fx-section-title" style={{ margin: '16px 0 32px' }}>
               About <em>Foxtrot</em>
@@ -21,7 +24,7 @@ export function AboutPage({ active }: Props) {
               growth across Africa.
             </p>
           </div>
-          <div className="fx-about-story-logoWrap">
+          <div className="fx-about-story-logoWrap fx-reveal" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
             <img className="fx-about-story-logo" src={logo} alt="Foxtrot Systems" />
           </div>
         </div>
@@ -29,7 +32,7 @@ export function AboutPage({ active }: Props) {
 
       <div className="fx-about-vision-band">
         <div className="fx-about-vision-mission-grid">
-          <div>
+          <div className="fx-reveal">
             <div className="fx-section-label">Vision</div>
             <h3
               style={{
@@ -45,7 +48,7 @@ export function AboutPage({ active }: Props) {
               Empowering sustainable growth and operational excellence in every community we serve.
             </p>
           </div>
-          <div>
+          <div className="fx-reveal" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
             <div className="fx-section-label">Mission</div>
             <h3
               style={{
@@ -66,47 +69,47 @@ export function AboutPage({ active }: Props) {
       </div>
 
       <section className="fx-values-section">
-        <div className="fx-section-label">Our Values</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16 }}>
+        <div className="fx-section-label fx-reveal">Our Values</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           What <em>Drives</em> Us
         </h2>
         <div className="fx-values-grid">
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal">
             <div className="fx-value-title">Technical Excellence</div>
             <div className="fx-value-desc">
               Every installation meets the highest professional standards — especially in remote and
               critical environments.
             </div>
           </div>
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal" style={{ '--fx-delay': '0.1s' } as React.CSSProperties}>
             <div className="fx-value-title">Community Empowerment</div>
             <div className="fx-value-desc">
               Technology should uplift communities. We design solutions that create lasting value for
               all we serve.
             </div>
           </div>
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal" style={{ '--fx-delay': '0.2s' } as React.CSSProperties}>
             <div className="fx-value-title">Sustainability</div>
             <div className="fx-value-desc">
               From solar power to smart agriculture, sustainability is at the core of every solution
               we engineer.
             </div>
           </div>
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal" style={{ '--fx-delay': '0.3s' } as React.CSSProperties}>
             <div className="fx-value-title">Reliability</div>
             <div className="fx-value-desc">
               In conservation zones and remote sites, failure is not an option. Our systems are built
               for resilience.
             </div>
           </div>
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal" style={{ '--fx-delay': '0.4s' } as React.CSSProperties}>
             <div className="fx-value-title">Innovation</div>
             <div className="fx-value-desc">
               We continuously adopt emerging technologies to keep our clients at the forefront of
               their industries.
             </div>
           </div>
-          <div className="fx-value-card">
+          <div className="fx-value-card fx-reveal" style={{ '--fx-delay': '0.5s' } as React.CSSProperties}>
             <div className="fx-value-title">Partnership</div>
             <div className="fx-value-desc">
               We build long-term relationships with clients, suppliers, and international partners.
@@ -116,11 +119,11 @@ export function AboutPage({ active }: Props) {
       </section>
 
       <section className="fx-team-section">
-        <div className="fx-section-label">The Team</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16 }}>
+        <div className="fx-section-label fx-reveal">The Team</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Meet the <em>Experts</em>
         </h2>
-        <div className="fx-team-card" style={{ marginTop: 40, maxWidth: 400 }}>
+        <div className="fx-team-card fx-reveal" style={{ marginTop: 40, maxWidth: 400, '--fx-delay': '0.2s' } as React.CSSProperties}>
           <div className="fx-team-avatar">SG</div>
           <div className="fx-team-role">Founder &amp; Managing Director</div>
           <div className="fx-team-name">Simbarashe Guri</div>

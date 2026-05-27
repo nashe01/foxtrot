@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import emailjs from '@emailjs/browser'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import heroSlideOne from '../assets/1.png'
 import heroSlideTwo from '../assets/2.png'
 import heroSlideThree from '../assets/3.png'
@@ -102,6 +103,8 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     ],
     [],
   )
+
+  useScrollReveal(active)
 
   const goToSlide = (idx: number) => setActiveHeroSlide(idx)
   const prevSlide = () => setActiveHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
@@ -280,14 +283,14 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </div>
 
       <section className="fx-section" id="section-services">
-        <div className="fx-section-header">
+        <div className="fx-section-header fx-reveal">
           <div className="fx-section-label">What We Do</div>
           <h2 className="fx-section-title">
             Core <em>Services</em>
           </h2>
         </div>
         <div className="fx-services-grid">
-          <div className="fx-services-intro">
+          <div className="fx-services-intro fx-reveal" style={{ '--fx-delay': '0.1s' } as React.CSSProperties}>
             <p className="fx-services-intro-text">
               Foxtrot Systems delivers end‑to‑end solutions across communications, renewable energy, and smart
               farming—built for performance in remote, high‑demand environments. From design and installation
@@ -321,12 +324,12 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-project-section">
-        <div className="fx-section-label">Featured Project</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16 }}>
+        <div className="fx-section-label fx-reveal">Featured Project</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Key <em>Achievements</em>
         </h2>
         <div className="fx-project-layout">
-          <div style={{ position: 'relative' }}>
+          <div className="fx-reveal" style={{ position: 'relative', '--fx-delay': '0.15s' } as React.CSSProperties}>
             <div className="fx-project-img">
               <img
                 className="fx-project-photo"
@@ -339,7 +342,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               <div className="fx-project-badge-label">Completed</div>
             </div>
           </div>
-          <div>
+          <div className="fx-reveal" style={{ '--fx-delay': '0.25s' } as React.CSSProperties}>
             <div className="fx-project-tag">Zimparks × Aware Germany</div>
             <h3 className="fx-project-title">Kyle Recreational Park &amp; Chipangayi Safari Area</h3>
             <p className="fx-project-desc">
@@ -368,7 +371,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-why-section">
-        <div className="fx-section-header">
+        <div className="fx-section-header fx-reveal">
           <div className="fx-section-label">Why Foxtrot</div>
           <h2 className="fx-section-title">
             Built on <em>Trust</em>
@@ -376,7 +379,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
         </div>
         <div className="fx-why-layout">
           <div className="fx-why-list">
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal">
               <div className="fx-why-num">01</div>
               <div>
                 <div className="fx-why-title">Deep Technical Expertise</div>
@@ -385,7 +388,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.1s' } as React.CSSProperties}>
               <div className="fx-why-num">02</div>
               <div>
                 <div className="fx-why-title">Proven Quality Commitment</div>
@@ -394,7 +397,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.2s' } as React.CSSProperties}>
               <div className="fx-why-num">03</div>
               <div>
                 <div className="fx-why-title">Integrated Solutions</div>
@@ -403,7 +406,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.3s' } as React.CSSProperties}>
               <div className="fx-why-num">04</div>
               <div>
                 <div className="fx-why-title">Community-Centred Approach</div>
@@ -413,7 +416,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               </div>
             </div>
           </div>
-          <div className="fx-why-visual">
+          <div className="fx-why-visual fx-reveal" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
             <div className="fx-why-visual-title">Performance Metrics</div>
             <div className="fx-metric-row">
               <div>
@@ -456,12 +459,12 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-contact-section" id="section-contact">
-        <div className="fx-section-label">Get In Touch</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16, marginBottom: 0 }}>
+        <div className="fx-section-label fx-reveal">Get In Touch</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, marginBottom: 0, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Request a <em>Quote</em>
         </h2>
         <div className="fx-contact-layout">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          <div className="fx-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 32, '--fx-delay': '0.15s' } as React.CSSProperties}>
             <p style={{ fontSize: 16, color: '#999', lineHeight: 1.8 }}>
               Ready to connect your operations? Our team delivers customized solutions tailored to your environment and budget.
             </p>
@@ -486,7 +489,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               </div>
             </div>
           </div>
-          <div className="fx-contact-form">
+          <div className="fx-contact-form fx-reveal" style={{ '--fx-delay': '0.25s' } as React.CSSProperties}>
             <div className="fx-form-row">
               <input
                 className="fx-input"

@@ -223,6 +223,12 @@ body {
   to   { opacity: 1; transform: translateY(0)     scale(1);    }
 }
 
+/* Generic scroll-reveal */
+.fx-reveal { opacity: 0; transform: translateY(32px); }
+.fx-reveal.fx-visible {
+  animation: fxCardReveal 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) var(--fx-delay, 0s) both;
+}
+
 /* Card — MorphicRox-style: image zoom + gradient overlay on hover */
 .fx-service-product-card {
   position: relative;

@@ -1,4 +1,5 @@
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import imgRadio from '../assets/services/7.jpeg'
 import imgSolar from '../assets/services/2.jpeg'
 import imgBackup from '../assets/services/1.jpeg'
@@ -16,28 +17,32 @@ type Props = {
 }
 
 export function ServicesPage({ active, onScrollToSection }: Props) {
+  useScrollReveal(active)
+
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-services">
       <div style={{ padding: '100px 60px 60px', background: 'var(--black)' }}>
-        <div className="fx-section-label">What We Deliver</div>
-        <h1 className="fx-section-title" style={{ marginTop: 16 }}>
+        <div className="fx-section-label fx-reveal">What We Deliver</div>
+        <h1 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Our <em>Services</em>
         </h1>
         <p
+          className="fx-reveal"
           style={{
             fontSize: 16,
             color: '#999',
             maxWidth: 600,
             marginTop: 24,
             lineHeight: 1.8,
-          }}
+            '--fx-delay': '0.2s',
+          } as React.CSSProperties}
         >
           From professional radio communications to solar energy and smart agriculture — end-to-end
           integrated solutions across Zimbabwe.
         </p>
       </div>
       <div className="fx-services-page">
-        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.twoWayRadio}>
+        <div className="fx-service-detail fx-reveal" id={SERVICE_SECTION_IDS.twoWayRadio}>
           <div>
             <div className="fx-sd-tag">Service 01</div>
             <h2 className="fx-sd-title">Two-Way Radio Systems</h2>
@@ -68,7 +73,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.solarRenewable}>
+        <div className="fx-service-detail fx-reveal" id={SERVICE_SECTION_IDS.solarRenewable}>
           <div>
             <div className="fx-sd-tag">Service 02</div>
             <h2 className="fx-sd-title">Solar &amp; Renewable Energy</h2>
@@ -99,7 +104,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.energyBackup}>
+        <div className="fx-service-detail fx-reveal" id={SERVICE_SECTION_IDS.energyBackup}>
           <div>
             <div className="fx-sd-tag">Service 03</div>
             <h2 className="fx-sd-title">Energy Backup Solutions</h2>
@@ -129,7 +134,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.technicalInfrastructure}>
+        <div className="fx-service-detail fx-reveal" id={SERVICE_SECTION_IDS.technicalInfrastructure}>
           <div>
             <div className="fx-sd-tag">Service 04</div>
             <h2 className="fx-sd-title">Technical Maintenance &amp; Infrastructure</h2>
@@ -160,7 +165,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
             </div>
           </div>
         </div>
-        <div className="fx-service-detail" id={SERVICE_SECTION_IDS.smartFarming}>
+        <div className="fx-service-detail fx-reveal" id={SERVICE_SECTION_IDS.smartFarming}>
           <div>
             <div className="fx-sd-tag">Service 05</div>
             <h2 className="fx-sd-title">Smart Farming Technologies</h2>
