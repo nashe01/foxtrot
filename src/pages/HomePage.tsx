@@ -21,10 +21,6 @@ type Props = {
 export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
   const heroSlides = useMemo(() => [heroSlideOne, heroSlideTwo, heroSlideThree], [])
   const [activeHeroSlide, setActiveHeroSlide] = useState(0)
-  const [loadedHeroSlides, setLoadedHeroSlides] = useState<boolean[]>(() =>
-    Array.from({ length: heroSlides.length }, () => false),
-  )
-  const [showHeroText, setShowHeroText] = useState(false)
   const [quoteName, setQuoteName] = useState('')
   const [quoteOrg, setQuoteOrg] = useState('')
   const [quotePhone, setQuotePhone] = useState('')
@@ -112,18 +108,6 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
   const nextSlide = () => setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
 
   useEffect(() => {
-    setShowHeroText(false)
-
-    if (loadedHeroSlides[activeHeroSlide]) {
-      const textRevealTimeoutId = window.setTimeout(() => {
-        setShowHeroText(true)
-      }, 500)
-
-      return () => window.clearTimeout(textRevealTimeoutId)
-    }
-  }, [activeHeroSlide, loadedHeroSlides])
-
-  useEffect(() => {
     if (!active) return
 
     const handleScroll = () => {
@@ -165,18 +149,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     return () => observer.disconnect()
   }, [active])
 
-  const markHeroSlideAsLoaded = (slideIndex: number) => {
-    setLoadedHeroSlides((prev) => {
-      if (prev[slideIndex]) {
-        return prev
-      }
 
-      const next = [...prev]
-      next[slideIndex] = true
-      return next
-    })
-
-  }
 
   const submitQuoteRequest = async () => {
     if (quoteSending) return
@@ -237,8 +210,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               className={`fx-hero-slide ${idx === activeHeroSlide ? 'active' : ''}`}
               src={slideSrc}
               alt=""
-              onLoad={() => markHeroSlideAsLoaded(idx)}
-              onError={() => markHeroSlideAsLoaded(idx)}
+
             />
           ))}
         </div>
@@ -252,9 +224,8 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
         </div>*/}
-        {showHeroText && (
-          <div
-            className="fx-hero-content fx-hero-content-animate"
+        <div
+            className="fx-hero-content"
             key={`hero-text-${heroSlides[activeHeroSlide]}`}
           >
             <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
@@ -278,7 +249,6 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
 
             </div>
           </div>
-        )}
 
         <div className="fx-hero-nav">
           <button className="fx-hero-nav-arrow" onClick={prevSlide} aria-label="Previous slide">&#8592;</button>

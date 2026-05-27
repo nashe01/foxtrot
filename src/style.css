@@ -158,25 +158,12 @@ body {
 @keyframes sweep { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
 .fx-hero-content { position: relative; z-index: 2; padding: 0 40px 0 60px; max-width: 640px; }
-.fx-hero-content-animate {
-  animation: heroTextSlideIn 0.9s ease-out both;
-}
-@keyframes heroTextSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-36px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-.fx-hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.8s ease both; }
+.fx-hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .fx-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--red); }
-.fx-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7vw, 88px); line-height: 0.95; letter-spacing: 2px; margin-bottom: 28px; animation: fadeUp 0.8s ease 0.15s both; }
+.fx-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7vw, 88px); line-height: 0.95; letter-spacing: 2px; margin-bottom: 28px; }
 .fx-hero-title span { color: var(--red); }
-.fx-hero-sub { font-size: 15px; line-height: 1.7; color: #000000; max-width: 480px; margin-bottom: 40px; animation: fadeUp 0.8s ease 0.3s both; }
-.fx-hero-actions { display: flex; gap: 16px; animation: fadeUp 0.8s ease 0.45s both; }
+.fx-hero-sub { font-size: 15px; line-height: 1.7; color: #000000; max-width: 480px; margin-bottom: 40px; }
+.fx-hero-actions { display: flex; gap: 16px; }
 .fx-hero-nav { position: absolute; bottom: 64px; left: 60px; z-index: 3; display: flex; align-items: center; gap: 16px; }
 .fx-hero-nav-arrow { background: transparent; border: 2px solid var(--red); color: var(--red); width: 40px; height: 40px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
 .fx-hero-nav-arrow:hover { background: var(--red); color: #fff; }
