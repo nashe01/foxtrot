@@ -231,8 +231,8 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             className="fx-hero-content"
             key={`hero-text-${heroSlides[activeHeroSlide]}`}
           >
-            <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
-            <h1 className="fx-hero-title">
+            <div className="fx-hero-eyebrow fx-hero-animate">Harare, Zimbabwe</div>
+            <h1 className="fx-hero-title fx-hero-animate" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
               {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
                 <span
                   key={`${activeHeroSlide}-title-${line}`}
@@ -245,7 +245,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </span>
               ))}
             </h1>
-            <p className="fx-hero-sub">
+            <p className="fx-hero-sub fx-hero-animate" style={{ '--fx-delay': '0.3s' } as React.CSSProperties}>
               {heroSlideContent[activeHeroSlide].description}
             </p>
             <div className="fx-hero-actions">

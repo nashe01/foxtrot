@@ -158,6 +158,7 @@ body {
 @keyframes sweep { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
 .fx-hero-content { position: relative; z-index: 2; padding: 0 40px 0 60px; max-width: 640px; }
+.fx-hero-animate { animation: fxCardReveal 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) var(--fx-delay, 0s) both; }
 .fx-hero-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
 .fx-hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--red); }
 .fx-hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 7vw, 88px); line-height: 0.95; letter-spacing: 2px; margin-bottom: 28px; }
