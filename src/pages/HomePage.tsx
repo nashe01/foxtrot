@@ -229,7 +229,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
         </div>*/}
         <div
             className="fx-hero-content"
-            key={`hero-text-${heroSlides[activeHeroSlide]}`}
+            key={`hero-text-${heroSlides[activeHeroSlide]}-${active}`}
           >
             <div className="fx-hero-eyebrow fx-hero-animate">Harare, Zimbabwe</div>
             <h1 className="fx-hero-title fx-hero-animate" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
