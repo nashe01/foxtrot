@@ -11,6 +11,7 @@ import { scrollToId } from './utils/scrollToId'
 
 export default function App() {
   const [page, setPage] = useState<Page>('home')
+  const [navReady, setNavReady] = useState(false)
   const [toast, setToast] = useState<{ visible: boolean; message: string }>({
     visible: false,
     message: '',
@@ -19,7 +20,7 @@ export default function App() {
 
   const showPage = useCallback((next: Page) => {
     setPage(next)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo(0, 0)
   }, [])
 
   const showToast = useCallback((message: string) => {
@@ -31,7 +32,9 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    const id = window.setTimeout(() => setNavReady(true), 1050)
     return () => {
+      window.clearTimeout(id)
       if (toastTimer.current) window.clearTimeout(toastTimer.current)
     }
   }, [])
@@ -48,10 +51,6 @@ export default function App() {
     [showPage],
   )
 
-  const navigateToServicesSection = useCallback((sectionId: string) => {
-    setPage('services')
-    window.setTimeout(() => scrollToId(sectionId), 120)
-  }, [])
 
   return (
     <div className="fx-site">
@@ -59,8 +58,7 @@ export default function App() {
 
       <HomePage
         active={isHome}
-        onNavigate={showPage}
-        onNavigateToServiceSection={navigateToServicesSection}
+        navReady={navReady}
         onShowToast={showToast}
       />
       <AboutPage active={isAbout} />

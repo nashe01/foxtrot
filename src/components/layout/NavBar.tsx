@@ -38,8 +38,8 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
       </div>
       <div className="fx-nav-links">
         <a onClick={() => handleNavigate('home')}>Home</a>
-        <a onClick={() => handleNavigate('about')}>About</a>
         <a onClick={() => handleNavigate('services')}>Services</a>
+        <a onClick={() => handleNavigate('about')}>About</a>
       </div>
       <button className="fx-quote-btn" onClick={handleQuote}>
         <span className="btn-text">Get a quote</span>
@@ -67,8 +67,8 @@ export function NavBar({ onNavigate, onScrollToSection }: Props) {
       </button>
       <div className={`fx-mobile-menu ${menuOpen ? 'open' : ''}`}>
         <a onClick={() => handleNavigate('home')}>Home</a>
-        <a onClick={() => handleNavigate('about')}>About</a>
         <a onClick={() => handleNavigate('services')}>Services</a>
+        <a onClick={() => handleNavigate('about')}>About</a>
         <button className="fx-mobile-quote-btn" onClick={handleQuote}>
           Get a quote
         </button>

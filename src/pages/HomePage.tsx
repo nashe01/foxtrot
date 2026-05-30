@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import emailjs from '@emailjs/browser'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 import heroSlideOne from '../assets/1.png'
 import heroSlideTwo from '../assets/2.png'
 import heroSlideThree from '../assets/3.png'
@@ -9,29 +9,22 @@ import serviceImageThree from '../assets/services/3.jpeg'
 import serviceImageSix from '../assets/services/6.jpg'
 import serviceImageSeven from '../assets/services/7.jpeg'
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
-import type { Page } from '../types/page'
 
 type Props = {
   active: boolean
-  onNavigate: (page: Page) => void
-  onNavigateToServiceSection: (sectionId: string) => void
+  navReady: boolean
   onShowToast: (message: string) => void
 }
 
-export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
+export function HomePage({ active, navReady, onShowToast }: Props) {
   const heroSlides = useMemo(() => [heroSlideOne, heroSlideTwo, heroSlideThree], [])
   const [activeHeroSlide, setActiveHeroSlide] = useState(0)
-  const [loadedHeroSlides, setLoadedHeroSlides] = useState<boolean[]>(() =>
-    Array.from({ length: heroSlides.length }, () => false),
-  )
-  const [showHeroText, setShowHeroText] = useState(false)
   const [quoteName, setQuoteName] = useState('')
   const [quoteOrg, setQuoteOrg] = useState('')
   const [quotePhone, setQuotePhone] = useState('')
   const [quoteEmail, setQuoteEmail] = useState('')
   const [quoteService, setQuoteService] = useState('')
   const [quoteMessage, setQuoteMessage] = useState('')
-  const [quoteSending, setQuoteSending] = useState(false)
 
   const heroSlideContent = useMemo(
     () => [
@@ -107,91 +100,89 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
     [],
   )
 
-  useEffect(() => {
-    const slideIntervalId = window.setInterval(() => {
-      setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
-    }, 7000)
+  useScrollReveal(active)
 
-    return () => window.clearInterval(slideIntervalId)
-  }, [heroSlides.length])
+  const goToSlide = (idx: number) => setActiveHeroSlide(idx)
+  const prevSlide = () => setActiveHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+  const nextSlide = () => setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
 
   useEffect(() => {
-    setShowHeroText(false)
-
-    if (loadedHeroSlides[activeHeroSlide]) {
-      const textRevealTimeoutId = window.setTimeout(() => {
-        setShowHeroText(true)
-      }, 500)
-
-      return () => window.clearTimeout(textRevealTimeoutId)
-    }
-  }, [activeHeroSlide, loadedHeroSlides])
-
-  const markHeroSlideAsLoaded = (slideIndex: number) => {
-    setLoadedHeroSlides((prev) => {
-      if (prev[slideIndex]) {
-        return prev
-      }
-
-      const next = [...prev]
-      next[slideIndex] = true
-      return next
-    })
-
-  }
-
-  const submitQuoteRequest = async () => {
-    if (quoteSending) return
-
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined
-
-    if (!serviceId || !templateId || !publicKey) {
-      onShowToast('Email service is not configured yet.')
+    if (!active) {
+      const mainContent = document.getElementById('fx-main-content')
+      const heroSection = document.getElementById('fx-hero-section')
+      if (mainContent) mainContent.style.transform = ''
+      if (heroSection) heroSection.style.transform = ''
       return
     }
 
+    const handleScroll = () => {
+      const scrolled = window.pageYOffset
+      const heroSection = document.getElementById('fx-hero-section')
+      const mainContent = document.getElementById('fx-main-content')
+
+      if (heroSection && mainContent) {
+        const heroHeight = heroSection.offsetHeight
+        const maxScroll = heroHeight * 0.6
+
+        const curtainOffset = Math.min(scrolled * 0.8, maxScroll)
+        mainContent.style.transform = `translateY(-${curtainOffset}px)`
+        heroSection.style.transform = `translateY(-${scrolled * 0.2}px)`
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [active])
+
+  useEffect(() => {
+    if (!active) return
+
+    const cards = document.querySelectorAll('.fx-service-product-card')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fx-card-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.25 },
+    )
+
+    cards.forEach((card) => {
+      card.classList.remove('fx-card-visible')
+      observer.observe(card)
+    })
+    return () => observer.disconnect()
+  }, [active])
+
+
+
+  const submitQuoteRequest = () => {
     if (!quoteName.trim() || !quotePhone.trim() || !quoteMessage.trim()) {
       onShowToast('Please fill in your name, phone, and requirements.')
       return
     }
 
-    setQuoteSending(true)
-    try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          to_email: 'technicalsales@foxtrot-sytems.com',
-          from_name: quoteName.trim(),
-          reply_to: quoteEmail.trim() || undefined,
-          organisation: quoteOrg.trim() || '-',
-          phone: quotePhone.trim(),
-          service_required: quoteService || '-',
-          message: quoteMessage.trim(),
-          source: 'Foxtrot website quote form',
-        },
-        { publicKey },
-      )
+    const subject = `Quote Request — ${quoteName.trim()}${quoteOrg.trim() ? ` (${quoteOrg.trim()})` : ''}`
+    const body = [
+      `Name: ${quoteName.trim()}`,
+      `Organisation: ${quoteOrg.trim() || '-'}`,
+      `Phone: ${quotePhone.trim()}`,
+      `Email: ${quoteEmail.trim() || '-'}`,
+      `Service Required: ${quoteService || '-'}`,
+      ``,
+      `Requirements:`,
+      quoteMessage.trim(),
+    ].join('\n')
 
-      onShowToast('Quote request sent! We will contact you within 24 hours.')
-      setQuoteName('')
-      setQuoteOrg('')
-      setQuotePhone('')
-      setQuoteEmail('')
-      setQuoteService('')
-      setQuoteMessage('')
-    } catch {
-      onShowToast('Failed to send. Please try again or call us.')
-    } finally {
-      setQuoteSending(false)
-    }
+    window.location.href = `mailto:technicalsales@foxtrot-sytems.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-home">
-      <section className="fx-hero">
+      <section className="fx-hero" id="fx-hero-section">
         <div className="fx-hero-media" aria-hidden="true">
           {heroSlides.map((slideSrc, idx) => (
             <img
@@ -199,8 +190,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               className={`fx-hero-slide ${idx === activeHeroSlide ? 'active' : ''}`}
               src={slideSrc}
               alt=""
-              onLoad={() => markHeroSlideAsLoaded(idx)}
-              onError={() => markHeroSlideAsLoaded(idx)}
+
             />
           ))}
         </div>
@@ -214,37 +204,55 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
           <div className="fx-radar-center" />
           <div className="fx-radar-sweep" />
         </div>*/}
-        {showHeroText && (
-          <div
-            className="fx-hero-content fx-hero-content-animate"
-            key={`hero-text-${heroSlides[activeHeroSlide]}`}
+        <div
+            className="fx-hero-content"
+            key={`hero-text-${heroSlides[activeHeroSlide]}-${active}`}
           >
-            <div className="fx-hero-eyebrow">Harare, Zimbabwe</div>
-            <h1 className="fx-hero-title">
-              {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
-                <span
-                  key={`${activeHeroSlide}-title-${line}`}
-                  style={{
-                    display: 'block',
-                    color: idx === 0 ? 'var(--text)' : 'var(--red)',
-                  }}
-                >
-                  {line}
-                </span>
-              ))}
-            </h1>
-            <p className="fx-hero-sub">
-              {heroSlideContent[activeHeroSlide].description}
-            </p>
-            <div className="fx-hero-actions">
-              
-            </div>
+            {(() => {
+              const base = navReady ? 0 : 1.05
+              return (
+                <>
+                  <div className="fx-hero-eyebrow fx-hero-animate" style={{ '--fx-delay': `${base}s` } as React.CSSProperties}>Harare, Zimbabwe</div>
+                  <h1 className="fx-hero-title fx-hero-animate" style={{ '--fx-delay': `${base + 0.15}s` } as React.CSSProperties}>
+                    {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
+                      <span
+                        key={`${activeHeroSlide}-title-${line}`}
+                        style={{
+                          display: 'block',
+                          color: idx === 0 ? 'var(--text)' : 'var(--red)',
+                        }}
+                      >
+                        {line}
+                      </span>
+                    ))}
+                  </h1>
+                  <p className="fx-hero-sub fx-hero-animate" style={{ '--fx-delay': `${base + 0.3}s` } as React.CSSProperties}>
+                    {heroSlideContent[activeHeroSlide].description}
+                  </p>
+                  <div className="fx-hero-actions" />
+                </>
+              )
+            })()}
           </div>
-        )}
-        
+
+        <div className="fx-hero-nav">
+          <button className="fx-hero-nav-arrow" onClick={prevSlide} aria-label="Previous slide">&#8592;</button>
+          <div className="fx-hero-dots">
+            {heroSlides.map((_, idx) => (
+              <button
+                key={idx}
+                className={`fx-hero-dot ${idx === activeHeroSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+          <button className="fx-hero-nav-arrow" onClick={nextSlide} aria-label="Next slide">&#8594;</button>
+        </div>
       </section>
 
-      <div className="fx-ticker">
+      <div id="fx-main-content" style={{ position: 'relative', zIndex: 10, background: 'var(--page-bg)', marginTop: '-5vh' }}>
+      <div className="fx-ticker" style={{ marginTop: 0 }}>
         <div className="fx-ticker-track">
           {Array.from({ length: 2 }).flatMap((_, loopIdx) =>
             tickerItems.map((t, idx) => (
@@ -257,14 +265,14 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </div>
 
       <section className="fx-section" id="section-services">
-        <div className="fx-section-header">
+        <div className="fx-section-header fx-reveal">
           <div className="fx-section-label">What We Do</div>
           <h2 className="fx-section-title">
             Core <em>Services</em>
           </h2>
         </div>
         <div className="fx-services-grid">
-          <div className="fx-services-intro">
+          <div className="fx-services-intro fx-reveal" style={{ '--fx-delay': '0.1s' } as React.CSSProperties}>
             <p className="fx-services-intro-text">
               Foxtrot Systems delivers end‑to‑end solutions across communications, renewable energy, and smart
               farming—built for performance in remote, high‑demand environments. From design and installation
@@ -272,22 +280,24 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               powered, and future‑ready.
             </p>
           </div>
-          {serviceCards.map((card) => (
+          {serviceCards.map((card, idx) => (
             <article
               className="fx-service-product-card"
               key={card.sectionId}
-              onClick={() => onNavigateToServiceSection(card.sectionId)}
+              style={{ animationDelay: `${idx * 0.3}s` }}
             >
               <div className="fx-service-thumb">
                 <img className="fx-service-thumb-image" src={card.image} alt={card.title} />
-                <div className="fx-service-thumb-meta">
-                  <div className="fx-service-brand-row">
-                  </div>
-                </div>
               </div>
-              <div className="fx-service-float-title">
-                <div className="fx-service-float-title-text">{card.title}</div>
-                <p className="fx-service-float-desc">{card.description}</p>
+              <div className="fx-service-overlay" />
+              <div className="fx-service-overlay-content">
+                <h3 className="fx-service-overlay-title">{card.title}</h3>
+                <p className="fx-service-overlay-desc">{card.description}</p>
+                <span className="fx-service-overlay-action">View Service →</span>
+              </div>
+              <div className="fx-service-default-text">
+                <h3 className="fx-service-default-title">{card.title}</h3>
+                <p className="fx-service-default-desc">{card.description}</p>
               </div>
             </article>
           ))}
@@ -295,12 +305,12 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-project-section">
-        <div className="fx-section-label">Featured Project</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16 }}>
+        <div className="fx-section-label fx-reveal">Featured Project</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Key <em>Achievements</em>
         </h2>
         <div className="fx-project-layout">
-          <div style={{ position: 'relative' }}>
+          <div className="fx-reveal" style={{ position: 'relative', '--fx-delay': '0.15s' } as React.CSSProperties}>
             <div className="fx-project-img">
               <img
                 className="fx-project-photo"
@@ -313,7 +323,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               <div className="fx-project-badge-label">Completed</div>
             </div>
           </div>
-          <div>
+          <div className="fx-reveal" style={{ '--fx-delay': '0.25s' } as React.CSSProperties}>
             <div className="fx-project-tag">Zimparks × Aware Germany</div>
             <h3 className="fx-project-title">Kyle Recreational Park &amp; Chipangayi Safari Area</h3>
             <p className="fx-project-desc">
@@ -342,7 +352,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-why-section">
-        <div className="fx-section-header">
+        <div className="fx-section-header fx-reveal">
           <div className="fx-section-label">Why Foxtrot</div>
           <h2 className="fx-section-title">
             Built on <em>Trust</em>
@@ -350,7 +360,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
         </div>
         <div className="fx-why-layout">
           <div className="fx-why-list">
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal">
               <div className="fx-why-num">01</div>
               <div>
                 <div className="fx-why-title">Deep Technical Expertise</div>
@@ -359,7 +369,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.1s' } as React.CSSProperties}>
               <div className="fx-why-num">02</div>
               <div>
                 <div className="fx-why-title">Proven Quality Commitment</div>
@@ -368,7 +378,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.2s' } as React.CSSProperties}>
               <div className="fx-why-num">03</div>
               <div>
                 <div className="fx-why-title">Integrated Solutions</div>
@@ -377,7 +387,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
                 </div>
               </div>
             </div>
-            <div className="fx-why-item">
+            <div className="fx-why-item fx-reveal" style={{ '--fx-delay': '0.3s' } as React.CSSProperties}>
               <div className="fx-why-num">04</div>
               <div>
                 <div className="fx-why-title">Community-Centred Approach</div>
@@ -387,7 +397,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               </div>
             </div>
           </div>
-          <div className="fx-why-visual">
+          <div className="fx-why-visual fx-reveal" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
             <div className="fx-why-visual-title">Performance Metrics</div>
             <div className="fx-metric-row">
               <div>
@@ -430,12 +440,12 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       </section>
 
       <section className="fx-contact-section" id="section-contact">
-        <div className="fx-section-label">Get In Touch</div>
-        <h2 className="fx-section-title" style={{ marginTop: 16, marginBottom: 0 }}>
+        <div className="fx-section-label fx-reveal">Get In Touch</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, marginBottom: 0, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Request a <em>Quote</em>
         </h2>
         <div className="fx-contact-layout">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          <div className="fx-reveal" style={{ display: 'flex', flexDirection: 'column', gap: 32, '--fx-delay': '0.15s' } as React.CSSProperties}>
             <p style={{ fontSize: 16, color: '#999', lineHeight: 1.8 }}>
               Ready to connect your operations? Our team delivers customized solutions tailored to your environment and budget.
             </p>
@@ -460,7 +470,7 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               </div>
             </div>
           </div>
-          <div className="fx-contact-form">
+          <div className="fx-contact-form fx-reveal" style={{ '--fx-delay': '0.25s' } as React.CSSProperties}>
             <div className="fx-form-row">
               <input
                 className="fx-input"
@@ -518,14 +528,13 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
               className="fx-btn-primary"
               style={{ width: '100%', padding: 16, fontSize: 13 }}
               onClick={submitQuoteRequest}
-              disabled={quoteSending}
-              aria-disabled={quoteSending}
             >
-              {quoteSending ? 'Sending…' : 'Submit Quote Request →'}
+              Submit Quote Request →
             </button>
           </div>
         </div>
       </section>
+      </div>
     </div>
   )
 }
