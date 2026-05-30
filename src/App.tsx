@@ -66,7 +66,7 @@ export default function App() {
 
       <Footer onNavigate={showPage} onScrollToSection={scrollToSection} />
 
-      <WhatsAppButton onClick={() => showToast('Opening WhatsApp — +263 774 116 149')} />
+      <WhatsAppButton onClick={() => window.open('https://wa.me/263774116149', '_blank')} />
       <Toast visible={toast.visible} message={toast.message} />
     </div>
   )
