@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 import heroSlideOne from '../assets/1.png'
 import heroSlideTwo from '../assets/2.png'
@@ -26,7 +25,6 @@ export function HomePage({ active, navReady, onShowToast }: Props) {
   const [quoteEmail, setQuoteEmail] = useState('')
   const [quoteService, setQuoteService] = useState('')
   const [quoteMessage, setQuoteMessage] = useState('')
-  const [quoteSending, setQuoteSending] = useState(false)
 
   const heroSlideContent = useMemo(
     () => [
@@ -161,53 +159,25 @@ export function HomePage({ active, navReady, onShowToast }: Props) {
 
 
 
-  const submitQuoteRequest = async () => {
-    if (quoteSending) return
-
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined
-
-    if (!serviceId || !templateId || !publicKey) {
-      onShowToast('Email service is not configured yet.')
-      return
-    }
-
+  const submitQuoteRequest = () => {
     if (!quoteName.trim() || !quotePhone.trim() || !quoteMessage.trim()) {
       onShowToast('Please fill in your name, phone, and requirements.')
       return
     }
 
-    setQuoteSending(true)
-    try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          to_email: 'technicalsales@foxtrot-sytems.com',
-          from_name: quoteName.trim(),
-          reply_to: quoteEmail.trim() || undefined,
-          organisation: quoteOrg.trim() || '-',
-          phone: quotePhone.trim(),
-          service_required: quoteService || '-',
-          message: quoteMessage.trim(),
-          source: 'Foxtrot website quote form',
-        },
-        { publicKey },
-      )
+    const subject = `Quote Request — ${quoteName.trim()}${quoteOrg.trim() ? ` (${quoteOrg.trim()})` : ''}`
+    const body = [
+      `Name: ${quoteName.trim()}`,
+      `Organisation: ${quoteOrg.trim() || '-'}`,
+      `Phone: ${quotePhone.trim()}`,
+      `Email: ${quoteEmail.trim() || '-'}`,
+      `Service Required: ${quoteService || '-'}`,
+      ``,
+      `Requirements:`,
+      quoteMessage.trim(),
+    ].join('\n')
 
-      onShowToast('Quote request sent! We will contact you within 24 hours.')
-      setQuoteName('')
-      setQuoteOrg('')
-      setQuotePhone('')
-      setQuoteEmail('')
-      setQuoteService('')
-      setQuoteMessage('')
-    } catch {
-      onShowToast('Failed to send. Please try again or call us.')
-    } finally {
-      setQuoteSending(false)
-    }
+    window.location.href = `mailto:technicalsales@foxtrot-sytems.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
   return (
@@ -558,10 +528,8 @@ export function HomePage({ active, navReady, onShowToast }: Props) {
               className="fx-btn-primary"
               style={{ width: '100%', padding: 16, fontSize: 13 }}
               onClick={submitQuoteRequest}
-              disabled={quoteSending}
-              aria-disabled={quoteSending}
             >
-              {quoteSending ? 'Sending…' : 'Submit Quote Request →'}
+              Submit Quote Request →
             </button>
           </div>
         </div>

@@ -5,7 +5,6 @@ import imgSolar from '../assets/services/2.jpeg'
 import imgBackup from '../assets/services/1.jpeg'
 import imgInfra from '../assets/services/6.jpg'
 import imgFarming from '../assets/services/3.jpeg'
-import imgRadio2 from '../../foxtrot/services2/1.jpeg'
 import imgSolar2 from '../../foxtrot/services2/2.jpg'
 import imgBackup2 from '../../foxtrot/services2/3.jpeg'
 import imgInfra2 from '../../foxtrot/services2/4.jpeg'
@@ -68,7 +67,7 @@ export function ServicesPage({ active, onScrollToSection }: Props) {
                 <div className="fx-sd-card-value">24/7</div>
               </div>
               <div className="fx-sd-bottom-right" style={{ padding: 0, overflow: 'hidden' }}>
-                <img src={imgRadio2} alt="Two-Way Radio" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src={imgRadio} alt="Two-Way Radio" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
             </div>
           </div>

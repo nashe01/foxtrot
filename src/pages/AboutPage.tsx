@@ -1,12 +1,41 @@
+import { useState, useEffect, useCallback } from 'react'
 import logo from '../assets/foxtrot-logo.png'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import sgPhoto from '../assets/WhatsApp Image 2026-05-25 at 08.42.54 (1).jpeg'
+import g1 from '../assets/gallery/1.jpeg'
+import g2 from '../assets/gallery/2.jpg'
+import g3 from '../assets/gallery/3.jpeg'
+import g4 from '../assets/gallery/4.jpeg'
+import g5 from '../assets/gallery/5.jpeg'
+import g6 from '../assets/gallery/6.jpeg'
+import g7 from '../assets/gallery/7.jpeg'
+import g8 from '../assets/gallery/8.jpeg'
+import g9 from '../assets/gallery/9.jpeg'
 
 type Props = {
   active: boolean
 }
 
+const images = [g1, g2, g3, g4, g5, g6, g7, g8, g9]
+
 export function AboutPage({ active }: Props) {
   useScrollReveal(active)
+  const [lightbox, setLightbox] = useState<number | null>(null)
+
+  const close = useCallback(() => setLightbox(null), [])
+  const prev = useCallback(() => setLightbox(i => i !== null ? (i - 1 + images.length) % images.length : null), [])
+  const next = useCallback(() => setLightbox(i => i !== null ? (i + 1) % images.length : null), [])
+
+  useEffect(() => {
+    if (lightbox === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close()
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox, close, prev, next])
 
   return (
     <div className={`fx-page ${active ? 'active' : ''}`} id="page-about">
@@ -118,13 +147,41 @@ export function AboutPage({ active }: Props) {
         </div>
       </section>
 
+      <section className="fx-gallery-section">
+        <div className="fx-section-label fx-reveal">In The Field</div>
+        <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
+          Our <em>Work</em>
+        </h2>
+        <div className="fx-gallery-grid">
+          {images.map((src, i) => (
+            <div key={i} className="fx-gallery-item" onClick={() => setLightbox(i)}>
+              <img src={src} alt={`Gallery image ${i + 1}`} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {lightbox !== null && (
+        <div className="fx-lightbox" onClick={close}>
+          <button className="fx-lightbox-close" onClick={close}>&#x2715;</button>
+          <button className="fx-lightbox-nav fx-lightbox-prev" onClick={e => { e.stopPropagation(); prev() }}>&#8249;</button>
+          <img
+            className="fx-lightbox-img"
+            src={images[lightbox]}
+            alt={`Gallery image ${lightbox + 1}`}
+            onClick={e => e.stopPropagation()}
+          />
+          <button className="fx-lightbox-nav fx-lightbox-next" onClick={e => { e.stopPropagation(); next() }}>&#8250;</button>
+        </div>
+      )}
+
       <section className="fx-team-section">
         <div className="fx-section-label fx-reveal">The Team</div>
         <h2 className="fx-section-title fx-reveal" style={{ marginTop: 16, '--fx-delay': '0.1s' } as React.CSSProperties}>
           Meet the <em>Experts</em>
         </h2>
         <div className="fx-team-card fx-reveal" style={{ marginTop: 40, maxWidth: 400, '--fx-delay': '0.2s' } as React.CSSProperties}>
-          <div className="fx-team-avatar">SG</div>
+          <div className="fx-team-avatar"><img src={sgPhoto} alt="Simbarashe Guri" /></div>
           <div className="fx-team-role">Founder &amp; Managing Director</div>
           <div className="fx-team-name">Simbarashe Guri</div>
           <div className="fx-team-desc">
