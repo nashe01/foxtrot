@@ -10,16 +10,14 @@ import serviceImageThree from '../assets/services/3.jpeg'
 import serviceImageSix from '../assets/services/6.jpg'
 import serviceImageSeven from '../assets/services/7.jpeg'
 import { SERVICE_SECTION_IDS } from '../constants/serviceSectionIds'
-import type { Page } from '../types/page'
 
 type Props = {
   active: boolean
-  onNavigate: (page: Page) => void
-  onNavigateToServiceSection: (sectionId: string) => void
+  navReady: boolean
   onShowToast: (message: string) => void
 }
 
-export function HomePage({ active, onNavigate, onNavigateToServiceSection, onShowToast }: Props) {
+export function HomePage({ active, navReady, onShowToast }: Props) {
   const heroSlides = useMemo(() => [heroSlideOne, heroSlideTwo, heroSlideThree], [])
   const [activeHeroSlide, setActiveHeroSlide] = useState(0)
   const [quoteName, setQuoteName] = useState('')
@@ -111,7 +109,13 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
   const nextSlide = () => setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length)
 
   useEffect(() => {
-    if (!active) return
+    if (!active) {
+      const mainContent = document.getElementById('fx-main-content')
+      const heroSection = document.getElementById('fx-hero-section')
+      if (mainContent) mainContent.style.transform = ''
+      if (heroSection) heroSection.style.transform = ''
+      return
+    }
 
     const handleScroll = () => {
       const scrolled = window.pageYOffset
@@ -148,7 +152,10 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
       { threshold: 0.25 },
     )
 
-    cards.forEach((card) => observer.observe(card))
+    cards.forEach((card) => {
+      card.classList.remove('fx-card-visible')
+      observer.observe(card)
+    })
     return () => observer.disconnect()
   }, [active])
 
@@ -231,26 +238,31 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             className="fx-hero-content"
             key={`hero-text-${heroSlides[activeHeroSlide]}-${active}`}
           >
-            <div className="fx-hero-eyebrow fx-hero-animate">Harare, Zimbabwe</div>
-            <h1 className="fx-hero-title fx-hero-animate" style={{ '--fx-delay': '0.15s' } as React.CSSProperties}>
-              {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
-                <span
-                  key={`${activeHeroSlide}-title-${line}`}
-                  style={{
-                    display: 'block',
-                    color: idx === 0 ? 'var(--text)' : 'var(--red)',
-                  }}
-                >
-                  {line}
-                </span>
-              ))}
-            </h1>
-            <p className="fx-hero-sub fx-hero-animate" style={{ '--fx-delay': '0.3s' } as React.CSSProperties}>
-              {heroSlideContent[activeHeroSlide].description}
-            </p>
-            <div className="fx-hero-actions">
-
-            </div>
+            {(() => {
+              const base = navReady ? 0 : 1.05
+              return (
+                <>
+                  <div className="fx-hero-eyebrow fx-hero-animate" style={{ '--fx-delay': `${base}s` } as React.CSSProperties}>Harare, Zimbabwe</div>
+                  <h1 className="fx-hero-title fx-hero-animate" style={{ '--fx-delay': `${base + 0.15}s` } as React.CSSProperties}>
+                    {heroSlideContent[activeHeroSlide].titleLines.map((line, idx) => (
+                      <span
+                        key={`${activeHeroSlide}-title-${line}`}
+                        style={{
+                          display: 'block',
+                          color: idx === 0 ? 'var(--text)' : 'var(--red)',
+                        }}
+                      >
+                        {line}
+                      </span>
+                    ))}
+                  </h1>
+                  <p className="fx-hero-sub fx-hero-animate" style={{ '--fx-delay': `${base + 0.3}s` } as React.CSSProperties}>
+                    {heroSlideContent[activeHeroSlide].description}
+                  </p>
+                  <div className="fx-hero-actions" />
+                </>
+              )
+            })()}
           </div>
 
         <div className="fx-hero-nav">
@@ -302,7 +314,6 @@ export function HomePage({ active, onNavigate, onNavigateToServiceSection, onSho
             <article
               className="fx-service-product-card"
               key={card.sectionId}
-              onClick={() => onNavigateToServiceSection(card.sectionId)}
               style={{ animationDelay: `${idx * 0.3}s` }}
             >
               <div className="fx-service-thumb">
